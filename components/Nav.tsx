@@ -1,0 +1,68 @@
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+export default function Nav({ toggleTheme }: { toggleTheme: () => void }) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  const toggleMob = () => setMobileMenuOpen(!mobileMenuOpen);
+
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+    if (pathname === path) {
+      e.preventDefault();
+    }
+  };
+
+  const handleMobileLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+    if (pathname === path) {
+      e.preventDefault();
+    }
+    toggleMob();
+  };
+
+  return (
+    <>
+      <nav className="nav">
+        <div className="nav-inner">
+          <Link href="/" onClick={(e) => handleLinkClick(e, "/")} className="nav-logo">
+            <img className="nav-logo-img" src="/images/image_1.png" alt="Lantern" />
+          </Link>
+          <ul className="nav-links">
+            <li><Link href="/about" onClick={(e) => handleLinkClick(e, "/about")} className={pathname === "/about" ? "active" : ""}>About</Link></li>
+            <li><Link href="/lantern" onClick={(e) => handleLinkClick(e, "/lantern")} className={pathname === "/lantern" ? "active" : ""}>The Lantern</Link></li>
+            <li><Link href="/services" onClick={(e) => handleLinkClick(e, "/services")} className={pathname === "/services" ? "active" : ""}>Services</Link></li>
+            <li><Link href="/pulse" onClick={(e) => handleLinkClick(e, "/pulse")} className={pathname === "/pulse" ? "active" : ""}>Pulse</Link></li>
+            <li><Link href="/industries" onClick={(e) => handleLinkClick(e, "/industries")} className={pathname === "/industries" ? "active" : ""}>Industries</Link></li>
+            <li><Link href="/contact" onClick={(e) => handleLinkClick(e, "/contact")} className={pathname === "/contact" ? "active" : ""}>Contact</Link></li>
+          </ul>
+          <div className="nav-actions">
+            <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme" title="Toggle theme">
+              <svg className="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                <circle cx="12" cy="12" r="4" />
+                <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+              </svg>
+              <svg className="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+              </svg>
+            </button>
+            <button className="hamburger" onClick={toggleMob} aria-label="Menu">
+              <span></span><span></span><span></span>
+            </button>
+          </div>
+        </div>
+      </nav>
+      <div className={`mobile-menu ${mobileMenuOpen ? 'active' : ''}`} id="mm">
+        <button className="mobile-close" onClick={toggleMob}>&times;</button>
+        <Link href="/about" onClick={(e) => handleMobileLinkClick(e, "/about")}>About</Link>
+        <Link href="/lantern" onClick={(e) => handleMobileLinkClick(e, "/lantern")}>The Lantern</Link>
+        <Link href="/services" onClick={(e) => handleMobileLinkClick(e, "/services")}>Services</Link>
+        <Link href="/pulse" onClick={(e) => handleMobileLinkClick(e, "/pulse")}>Pulse</Link>
+        <Link href="/industries" onClick={(e) => handleMobileLinkClick(e, "/industries")}>Industries</Link>
+        <Link href="/contact" onClick={(e) => handleMobileLinkClick(e, "/contact")}>Contact</Link>
+      </div>
+    </>
+  );
+}
