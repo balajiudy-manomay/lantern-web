@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "FAQs | Lantern",
 
   description:
-    "Answers to common questions about how Lantern works, who we work with, and how to start a conversation.",
+    "Answers to common questions about how Lantern works and who we work with.",
 
   alternates: {
     canonical: "/faqs",
@@ -14,41 +14,45 @@ export const metadata: Metadata = {
   openGraph: {
     title: "FAQs | Lantern",
     description:
-      "Answers to common questions about how Lantern works, who we work with, and how to start a conversation.",
+      "Answers to common questions about how Lantern works and who we work with.",
     url: "/faqs",
   },
 
   twitter: {
     title: "FAQs | Lantern",
     description:
-      "Answers to common questions about how Lantern works, who we work with, and how to start a conversation.",
+      "Answers to common questions about how Lantern works and who we work with.",
   },
 };
 
+// #1 from the client's FAQ sheet is intentionally left out of faqItems —
+// noted there as "Let it be a placeholder for now. And hide." Keeping it
+// here, unrendered, so it's easy to bring in once it's ready to publish.
+// const hiddenFaqItem = {
+//   q: "What additional value does Lantern provide beyond what I could get from tools like ChatGPT or Claude?",
+//   a: "AI tools can provide answers. Lantern works to understand the problem behind the question. We look across the business to identify root causes, interdependencies and the highest-impact solution — not just the immediate requirement. We then bring the right combination of human expertise, AI and automation and stay involved through execution and value realisation.",
+// };
+
 const faqItems = [
   {
-    q: "What does Lantern actually do?",
-    a: "We help companies that are ambitious about growth identify and overcome the operational, strategic and organisational challenges that stand in their way — combining human judgement, AI and intelligent automation to solve the problem, not just recommend a solution.",
+    q: "My company is not a startup or a brand new company. Would Lantern help us resolve the business challenges?",
+    a: "Absolutely. Lantern works with founder-led companies at different stages of their journey — not just newly established businesses. If your company is ambitious about growth and looking to move into its next stage, we would be glad to help you get there.",
   },
   {
-    q: "How is this different from hiring a traditional consultancy?",
-    a: "We don’t stop at the recommendation. We work alongside your team to design, implement and measure the solution, so strategy turns into execution and execution into measurable business value.",
+    q: "Does Lantern only work with founder-led companies?",
+    a: "Founder-led companies are our primary focus, but they are not our only focus. We work with growth-oriented businesses that are looking to overcome the constraints in their current ways of working and move towards their next stage of growth.",
   },
   {
-    q: "Do we need an AI strategy before we talk to you?",
-    a: "No. Many of the companies we work with start with a business constraint, not an AI mandate. We help you work out where AI, automation or simply a different operating model actually creates value — starting with the business need, not the technology.",
+    q: "How does Lantern approach a business problem?",
+    a: "We start with the business problem, not a predefined service. We look beyond the immediate challenge to understand its root causes, the interdependencies across people, processes, technology and functions, and the broader business impact. We then design, implement and measure the solution that best fits the business and its stage of growth.",
   },
   {
-    q: "What size of company do you typically work with?",
-    a: "We work with founder-built, ambitious companies that have outgrown the ways of working that got them here — from mid-sized businesses to larger organisations navigating a new stage of growth.",
+    q: "Do I need to know what solution I need before approaching Lantern?",
+    a: "Not at all. Bring us the business challenge — not necessarily the solution. We work with you to understand what is really holding the business back, challenge the assumptions behind the requirement and identify the approach that can create the greatest business value.",
   },
   {
-    q: "Which industries do you work in?",
-    a: "Technology & AI, Financial & Business Services, Healthcare & Life Sciences, Professional Services, Logistics & Operations and Government organisations — see the Industries page for more detail.",
-  },
-  {
-    q: "How do we start a conversation with Lantern?",
-    a: "Reach out through the Contact page. We’ll come back with a point of view on what we’re hearing, not a sales pitch.",
+    q: "Can Lantern work with our existing technology and systems, or do we need to replace them?",
+    a: "We don't believe in replacing technology for the sake of replacing it. We assess your existing systems, capabilities and constraints first, and work with what already makes sense. Where change is needed, we recommend it based on the business value it can create — not on a preference for a particular technology or platform.",
   },
 ];
 
@@ -58,7 +62,6 @@ export default function FaqsPage() {
       <div className="si" style={{ maxWidth: '780px' }}>
         <h1 className="sl">FAQs</h1>
         <p className="st">Questions we hear most often.</p>
-        <p className="fx-note" style={{ marginTop: '-.5rem' }}>Placeholder content &middot; pending the full FAQs sheet</p>
         <FaqAccordion items={faqItems} />
       </div>
     </section>

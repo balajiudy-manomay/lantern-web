@@ -47,10 +47,22 @@ export default function ContactForm() {
 
   return (
     <form className="ct-form" onSubmit={handleSubmit}>
-      <input type="text" name="name" placeholder="Your name *" required disabled={status === "loading"} />
-      <input type="email" name="email" placeholder="Email address *" required disabled={status === "loading"} />
-      <input type="text" name="company" placeholder="Company (optional)" disabled={status === "loading"} />
-      <textarea name="message" placeholder="Tell us what is on your mind... *" required disabled={status === "loading"}></textarea>
+      <div className="ct-field">
+        <label htmlFor="ct-name">Full name</label>
+        <input id="ct-name" type="text" name="name" placeholder="Your name" required disabled={status === "loading"} />
+      </div>
+      <div className="ct-field">
+        <label htmlFor="ct-email">Email address</label>
+        <input id="ct-email" type="email" name="email" placeholder="you@company.com" required disabled={status === "loading"} />
+      </div>
+      <div className="ct-field">
+        <label htmlFor="ct-company">Company <span>(optional)</span></label>
+        <input id="ct-company" type="text" name="company" placeholder="Your company" disabled={status === "loading"} />
+      </div>
+      <div className="ct-field">
+        <label htmlFor="ct-message">Message</label>
+        <textarea id="ct-message" name="message" placeholder="Tell us what is on your mind..." required disabled={status === "loading"}></textarea>
+      </div>
       <button type="submit" disabled={status === "loading"}>
         {status === "loading" ? "Sending..." : "Send Message"}
       </button>

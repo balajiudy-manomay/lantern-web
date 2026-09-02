@@ -47,6 +47,12 @@ export default function ContactPage() {
         <div className="ct-grid">
           <ContactForm />
           <div className="ct-info">
+            <div className="ct-badge">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
+            </div>
             <h2>For leaders who want to talk, not fill out a funnel.</h2>
             <p>Whether you have a specific challenge or you are still shaping the question, we are happy to listen. Our conversations are confidential, candid, and free of sales pressure.</p>
             <div className="ct-detail">

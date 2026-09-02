@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Inter, Caveat, Kalam } from "next/font/google";
+import { Montserrat, Inter, Caveat, Kalam } from "next/font/google";
 import ClientLayout from "../components/ClientLayout";
 import "./globals.css";
 
-const playfair = Playfair_Display({
+const montserrat = Montserrat({
   variable: "--sf",
   subsets: ["latin"],
 });
@@ -125,7 +125,7 @@ export default function RootLayout({
     <html
       lang="en"
       data-theme="light"
-      className={`${playfair.variable} ${inter.variable} ${caveat.variable} ${kalam.variable} h-full antialiased`}
+      className={`${montserrat.variable} ${inter.variable} ${caveat.variable} ${kalam.variable} h-full antialiased`}
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >

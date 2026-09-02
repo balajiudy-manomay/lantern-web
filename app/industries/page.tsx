@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import FunctionsRail from "../../components/pages/industries/FunctionsRail";
 
 export const metadata: Metadata = {
   title: "Industries We Serve | Lantern",
@@ -88,13 +89,8 @@ export default function IndustriesPage() {
             work across the interconnected functions that shape how a
             business operates, grows and delivers value.
           </p>
-          <div className="fx-wrap">
-            {functions.map((f, i) => (
-              <span key={f} className={`fx-pill${i === 0 ? " active" : ""}`}>{f}</span>
-            ))}
-          </div>
+          <FunctionsRail functions={functions} />
           <div className="fx-rule"></div>
-          <p className="fx-note">Horizontal Rail &middot; Pills Scroll and Select</p>
           <p className="ab-intro" style={{ marginBottom: 0 }}>
             Our perspective spans both the industry and the functions within
             it&mdash;because the challenges that limit growth rarely sit

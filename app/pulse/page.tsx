@@ -90,7 +90,7 @@ export default function PulsePage() {
                 <div className="mp-figure-lbl">AI VALUE REALISED</div>
               </div>
             </div>
-            <p className="mp-quote">Only 5% of companies achieve significant AI value as success depends on transforming data, processes and people &ndash; not just deploying AI.</p>
+            <p className="mp-quote">Only 5% of companies achieve significant AI value, as success depends on transforming data, processes and people &mdash; not just deploying AI.</p>
             <div className="mp-source">MCKINSEY &amp; BCG</div>
           </article>
 
@@ -106,7 +106,7 @@ export default function PulsePage() {
                 <div className="mp-figure-lbl">CANCELLED BY 2027</div>
               </div>
             </div>
-            <p className="mp-quote">Of agentic AI projects predicted to be cancelled by end of 2027 due to unclear business value or adequate risk controls.</p>
+            <p className="mp-quote">Of agentic AI projects are predicted to be cancelled by end of 2027, due to unclear business value or inadequate risk controls.</p>
             <div className="mp-source">SOURCE TBC</div>
           </article>
 
@@ -143,7 +143,7 @@ export default function PulsePage() {
                 <div className="mp-bar-track"><div className="mp-bar-fill mu" style={{ width: '6%' }}></div></div>
               </div>
             </div>
-            <p className="mp-quote">Organizations redesigning workflows are 5.3&times; more likely to realize AI value.</p>
+            <p className="mp-quote">Organisations redesigning workflows are 5.3&times; more likely to realise AI value.</p>
             <div className="mp-source">MCKINSEY</div>
           </article>
 
@@ -162,7 +162,7 @@ export default function PulsePage() {
                 <div className="mp-bar-track"><div className="mp-bar-fill" style={{ width: '8%' }}></div></div>
               </div>
             </div>
-            <p className="mp-quote">Organizations use AI, but only 8% have a comprehensive AI governance framework.</p>
+            <p className="mp-quote">Organisations use AI, but only 8% have a comprehensive AI governance framework.</p>
             <div className="mp-source">MCKINSEY</div>
           </article>
         </div>
@@ -174,7 +174,7 @@ export default function PulsePage() {
             </div>
             <div className="mp-figure" style={{ fontSize: '2.4rem', marginBottom: '.9rem' }}>36%</div>
             <div className="mp-bar-track" style={{ marginBottom: '1rem' }}><div className="mp-bar-fill" style={{ width: '36%' }}></div></div>
-            <p className="mp-quote">Organizations cite fragmented processes as the biggest barrier to intelligent automation.</p>
+            <p className="mp-quote">Organisations cite fragmented processes as the biggest barrier to intelligent automation.</p>
             <div className="mp-source">DELOITTE / HBR</div>
           </article>
 

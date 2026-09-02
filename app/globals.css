@@ -53,7 +53,7 @@
   --gol: #e5c971;
   --gd: #b8863e;
   --gold-grad: linear-gradient(135deg, #e7aa51 0%, #ffe499 50%, #e5c971 100%);
-  --teal: #0e2f58;
+  --teal: #1e233f;
   --tl: #1b4a82;
   --tp: #e9eef5;
   --td: #081d38;
@@ -71,7 +71,7 @@
   --postit: #fff8b3;
   --torn: #fff8e8;
   --highlight: rgba(255, 235, 120, 0.5);
-  --hero-grad: linear-gradient(170deg, #ffffff 0%, #ffffff 40%, #ffffff 100%);
+  --hero-grad: linear-gradient(170deg, #081d38 0%, #0e2f58 50%, #1b4a82 100%);
   --constellation: #3e6ea5;
   --constellation-glow: #a9c7e6;
 }
@@ -105,10 +105,15 @@
 }
 
 :root {
-  --sf: "Playfair Display", serif;
+  --sf: "Montserrat", sans-serif;
   --sn: "Inter", sans-serif;
   --hand: "Caveat", cursive;
   --marker: "Kalam", cursive;
+  /* Fixed brand blue for the header and home hero — deliberately NOT
+     --teal, which is meant to shift between themes (its dark-mode value
+     is a light accent blue, wrong as a full-bleed background). Using a
+     dedicated var here means a future edit to --teal can't break this. */
+  --header-blue: #1e233f;
 }
 
 html {
@@ -148,14 +153,10 @@ a:hover {
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(30, 35, 63, 0.92);
   backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--bdr2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   transition: background 0.4s;
-}
-
-:root[data-theme="dark"] .nav {
-  background: rgba(15, 20, 25, 0.85);
 }
 
 .nav-inner {
@@ -179,15 +180,15 @@ a:hover {
   height: 44px;
   width: auto;
   display: block;
-  color: var(--hd);
+  color: #fff;
 }
 
 .hero-logo-img {
   height: 130px;
   width: auto;
   display: block;
-  color: var(--hd);
-  filter: drop-shadow(0 4px 24px rgba(231, 170, 81, 0.18));
+  color: #fff;
+  filter: drop-shadow(0 4px 24px rgba(231, 170, 81, 0.28));
 }
 
 .nav-links {
@@ -199,7 +200,7 @@ a:hover {
 }
 
 .nav-links a {
-  color: var(--mu);
+  color: rgba(255, 255, 255, 0.8);
   font-size: 0.74rem;
   font-weight: 500;
   letter-spacing: 0.14em;
@@ -209,7 +210,7 @@ a:hover {
 
 .nav-links a:hover,
 .nav-links a.active {
-  color: var(--teal);
+  color: var(--gold);
 }
 
 .nav-actions {
@@ -220,8 +221,8 @@ a:hover {
 
 .theme-toggle {
   background: none;
-  border: 1px solid var(--bdr);
-  color: var(--bd);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.9);
   width: 34px;
   height: 34px;
   border-radius: 50%;
@@ -233,8 +234,8 @@ a:hover {
 }
 
 .theme-toggle:hover {
-  border-color: var(--teal);
-  color: var(--teal);
+  border-color: var(--gold);
+  color: var(--gold);
   transform: rotate(180deg);
 }
 
@@ -269,7 +270,7 @@ a:hover {
   display: block;
   width: 22px;
   height: 1.5px;
-  background: var(--teal);
+  background: #fff;
 }
 
 .mobile-menu {
@@ -335,7 +336,7 @@ a:hover {
 }
 
 .nav-drop:focus-within > a {
-  color: var(--teal);
+  color: var(--gold);
 }
 
 /* Invisible bridge: the panel's hit-area starts flush against the trigger
@@ -472,7 +473,7 @@ a:hover {
   padding: 6rem 2rem 3rem;
   position: relative;
   overflow: hidden;
-  background: var(--hero-grad);
+  background: var(--header-blue);
 }
 
 .hero-content {
@@ -572,15 +573,11 @@ a:hover {
   );
 }
 
-.hero::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 50px;
-  background: linear-gradient(transparent, var(--bg2));
-  z-index: 1;
+/* Fades into the light band below (see .ill-band override above) instead
+   of the generic page background, now that the hero itself is a fixed
+   blue in light theme too. */
+:root[data-theme="light"] .hero::after {
+  background: linear-gradient(transparent, var(--tp));
 }
 
 .hero-logo {
@@ -590,7 +587,7 @@ a:hover {
 .hero-stmt {
   font-family: var(--sf);
   font-size: clamp(1.5rem, 3.8vw, 2.6rem);
-  color: var(--hd);
+  color: #fff;
   margin-bottom: 1rem;
   font-weight: 300;
   letter-spacing: 0.01em;
@@ -600,7 +597,7 @@ a:hover {
   font-size: 0.78rem;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--teal);
+  color: rgba(255, 255, 255, 0.78);
   margin-bottom: 2.2rem;
   font-weight: 500;
 }
@@ -635,22 +632,22 @@ a:hover {
 .qt {
   font-family: var(--sf);
   font-size: clamp(1.1rem, 2.8vw, 1.65rem);
-  font-weight: 600;
-  color: var(--hd);
+  font-weight: 400;
+  color: #fff;
   line-height: 1.4;
   margin-bottom: 0.7rem;
 }
 
 .qcta {
   font-size: 0.82rem;
-  color: var(--teal);
+  color: var(--gold);
   letter-spacing: 0.08em;
   cursor: pointer;
   transition: 0.3s;
 }
 
 .qcta:hover {
-  color: var(--tl);
+  color: var(--gol);
   letter-spacing: 0.12em;
 }
 
@@ -664,21 +661,22 @@ a:hover {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  border: 1.5px solid var(--teal);
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
   background: transparent;
   cursor: pointer;
   transition: 0.3s;
 }
 
 .hdot.active {
-  background: var(--teal);
+  background: var(--gold);
+  border-color: var(--gold);
 }
 
 .swh {
   display: none;
   margin-top: 0.8rem;
   font-size: 0.72rem;
-  color: var(--mu2);
+  color: rgba(255, 255, 255, 0.5);
   letter-spacing: 0.1em;
 }
 
@@ -701,29 +699,29 @@ a:hover {
 }
 
 .cta-primary {
-  background: var(--teal);
-  color: #fff !important;
+  background: var(--gold-grad);
+  color: var(--header-blue) !important;
   border: none;
 }
 
 .cta-primary:hover {
-  background: var(--tl);
+  filter: brightness(1.08);
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(14, 47, 88, 0.25);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 }
 
 .cta-secondary {
-  border: 1.5px solid var(--teal);
-  color: var(--teal) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  color: #fff !important;
   background: transparent;
 }
 
 .cta-secondary:hover {
-  background: rgba(14, 47, 88, 0.06);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .ill-band {
-  background: linear-gradient(135deg, var(--td), var(--teal), var(--tl));
+  background: white;
   padding: 3rem 2rem;
   text-align: center;
   position: relative;
@@ -763,6 +761,21 @@ a:hover {
   position: relative;
   z-index: 1;
   text-transform: uppercase;
+}
+
+/* The hero above is now blue in light theme, so this band flips to a light
+   tint instead of repeating the same blue — dark theme's hero stays dark,
+   so its band keeps the original blue gradient. */
+:root[data-theme="light"] .ill-band {
+  /* background: var(--tp); */
+}
+
+:root[data-theme="light"] .ill-txt {
+  color: var(--hd);
+}
+
+:root[data-theme="light"] .ill-sub {
+  color: var(--teal);
 }
 
 section {
@@ -827,7 +840,7 @@ section {
 }
 
 .ab-intro {
-  color: var(--bd);
+  color: var(--hd);
   font-size: 1rem;
   max-width: 680px;
   margin-bottom: 0.7rem;
@@ -840,13 +853,13 @@ section {
   align-items: center;
   gap: 0.4rem;
   font-size: 0.78rem;
-  color: var(--mu);
+  color: rgba(255, 255, 255, 0.65);
   margin-bottom: 2.2rem;
   font-style: italic;
 }
 
 .ab-partner a {
-  color: var(--teal);
+  color: var(--gold);
   font-weight: 600;
   font-style: normal;
   border-bottom: 1px solid transparent;
@@ -854,7 +867,7 @@ section {
 }
 
 .ab-partner a:hover {
-  border-bottom-color: var(--teal);
+  border-bottom-color: var(--gold);
 }
 
 .ab-grid {
@@ -958,14 +971,6 @@ section {
   font-weight: 300;
 }
 
-.fn-title {
-  font-size: 0.78rem;
-  color: var(--mu);
-  letter-spacing: 0.06em;
-  margin-bottom: 0.9rem;
-  font-weight: 500;
-}
-
 .fn-quote {
   font-family: var(--sf);
   font-style: italic;
@@ -979,7 +984,7 @@ section {
 
 .fn-bio {
   font-size: 0.84rem;
-  color: var(--mu);
+  color: var(--bd);
   line-height: 1.75;
 }
 
@@ -1055,23 +1060,23 @@ section {
 }
 
 .pil.p-handle {
-  border-left-color: #2a9d8f;
+  border-left-color: #3e6ea5;
 }
 
 .pil.p-flame {
-  border-left-color: #d4af37;
+  border-left-color: #4a7fc9;
 }
 
 .pil.p-glass {
-  border-left-color: #7a7e8a;
+  border-left-color: #7a93b8;
 }
 
 .pil.p-fuel {
-  border-left-color: #c9a84c;
+  border-left-color: #1b4a82;
 }
 
 .pil.p-frame {
-  border-left-color: #0f6e56;
+  border-left-color: #0e2f58;
 }
 
 .pil-ico {
@@ -1679,12 +1684,34 @@ section {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
+  align-items: start;
 }
 
 .ct-form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.2rem;
+}
+
+.ct-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.ct-field label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bd);
+}
+
+.ct-field label span {
+  text-transform: none;
+  font-weight: 400;
+  letter-spacing: normal;
+  color: var(--mu2);
 }
 
 .ct-form input,
@@ -1695,7 +1722,7 @@ section {
   padding: 0.85rem 1rem;
   font-family: var(--sn);
   font-size: 0.88rem;
-  border-radius: 3px;
+  border-radius: 6px;
   transition: 0.3s;
   outline: none;
 }
@@ -1721,7 +1748,7 @@ section {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   cursor: pointer;
-  border-radius: 3px;
+  border-radius: 6px;
   transition: 0.3s;
   align-self: flex-start;
 }
@@ -1730,22 +1757,59 @@ section {
   background: var(--tl);
 }
 
+.ct-info {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--bdr2);
+  border-radius: 14px;
+  padding: 2.4rem;
+  overflow: hidden;
+}
+
+.ct-info::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(var(--bdr2) 1px, transparent 1px);
+  background-size: 16px 16px;
+  mask-image: radial-gradient(circle at 20% 15%, #000 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.ct-badge {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(231, 170, 81, 0.12);
+  color: var(--gold);
+  margin-bottom: 1.1rem;
+}
+
 .ct-info h2 {
+  position: relative;
   font-family: var(--sf);
-  font-size: 1rem;
+  font-size: 1.15rem;
   color: var(--hd);
   margin-bottom: 0.7rem;
   font-weight: 300;
+  max-width: 360px;
 }
 
 .ct-info p {
+  position: relative;
   color: var(--mu);
-  margin-bottom: 0.8rem;
+  margin-bottom: 1.2rem;
   font-size: 0.86rem;
   line-height: 1.7;
+  max-width: 380px;
 }
 
 .ct-detail {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -2007,10 +2071,6 @@ section {
   transition: box-shadow 0.3s;
 }
 
-.cx-card:hover {
-  border-color: var(--teal);
-}
-
 .cx-num {
   font-family: var(--sf);
   font-size: 1.3rem;
@@ -2021,7 +2081,7 @@ section {
 
 .cx-tag {
   font-size: 0.82rem;
-  color: var(--mu);
+  color: var(--hd);
   line-height: 1.55;
   margin-bottom: 0.7rem;
   max-width: 640px;
@@ -2037,7 +2097,7 @@ section {
 
 .cx-desc {
   font-size: 0.86rem;
-  color: var(--mu);
+  color: var(--hd);
   line-height: 1.7;
   max-width: 640px;
 }
@@ -2282,6 +2342,11 @@ section {
   font-size: 1.05rem;
   color: var(--hd);
   padding: 0;
+  transition: color 0.25s;
+}
+
+.faq-q:hover {
+  color: var(--teal);
 }
 
 .faq-item.open .faq-q {
@@ -2293,6 +2358,11 @@ section {
   font-size: 1.3rem;
   color: var(--teal);
   line-height: 1;
+  transition: transform 0.3s ease;
+}
+
+.faq-item.open .faq-icon {
+  transform: rotate(45deg);
 }
 
 .faq-a {
@@ -2319,18 +2389,44 @@ section {
 
 .fx-wrap {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 0.7rem;
   margin-bottom: 1.4rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 24px,
+    #000 calc(100% - 24px),
+    transparent
+  );
+}
+
+.fx-wrap::-webkit-scrollbar {
+  display: none;
 }
 
 .fx-pill {
+  flex-shrink: 0;
+  scroll-snap-align: start;
   padding: 0.55rem 1.1rem;
   border-radius: 100px;
   border: 1px solid var(--bdr2);
   font-size: 0.78rem;
+  font-family: inherit;
   color: var(--bd);
   background: var(--card);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: 0.25s;
+}
+
+.fx-pill:hover {
+  border-color: var(--gold);
 }
 
 .fx-pill.active {

@@ -22,7 +22,7 @@ export default function FaqAccordion({ items }: { items: FaqItem[] }) {
               aria-expanded={open}
             >
               <span>{item.q}</span>
-              <span className="faq-icon">{open ? "−" : "+"}</span>
+              <span className="faq-icon" aria-hidden="true">+</span>
             </button>
             <div className="faq-a">
               <div className="faq-a-inner">
