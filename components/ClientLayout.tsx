@@ -5,6 +5,7 @@ import Nav from "./Nav";
 import Footer from "./Footer";
 import { ModalProvider, useModal } from "./ModalContext";
 import { useRouter } from "next/navigation";
+import { serviceIcons } from "./icons/service-icons";
 
 function ModalOverlay() {
   const { modalData, closeModal } = useModal();
@@ -20,20 +21,41 @@ function ModalOverlay() {
 
   if (!modalData) return null;
 
+  const Icon = modalData.n ? serviceIcons[modalData.n] : undefined;
+
   return (
     <div className="mo active" onClick={(e) => { if (e.target === e.currentTarget) closeModal(); }}>
-      <div className="md">
-        <button className="md-x" onClick={closeModal}>&times;</button>
+      <div className="md" role="dialog" aria-modal="true">
+        <button className="md-x" onClick={closeModal} aria-label="Close">&times;</button>
         <div id="mb">
-          <p className="md-q">&ldquo;{modalData.q}&rdquo;</p>
-          <h3>The Problem</h3><p>{modalData.prob}</p>
-          <h3>How Lantern Helps</h3><p>{modalData.app}</p>
-          <h3>Key Outcomes</h3>
-          <ul>
-            {modalData.out?.map((o: string, idx: number) => (
-              <li key={idx}>{o}</li>
-            ))}
-          </ul>
+          <div className="md-head ">
+            {Icon && (
+              <div className="flex shrink-0 items-center justify-center">
+                <Icon size={24} />
+              </div>
+            )}
+            <p className="md-q">&ldquo;{modalData.q}&rdquo;</p>
+          </div>
+
+          <div className="md-section">
+            <h3>The Problem</h3>
+            <p>{modalData.prob}</p>
+          </div>
+
+          <div className="md-section">
+            <h3>How Lantern Helps</h3>
+            <p>{modalData.app}</p>
+          </div>
+
+          <div className="md-section">
+            <h3>Key Outcomes</h3>
+            <ul>
+              {modalData.out?.map((o: string, idx: number) => (
+                <li key={idx}>{o}</li>
+              ))}
+            </ul>
+          </div>
+
           <button
             className="md-btn"
             onClick={() => {

@@ -47,8 +47,8 @@ export default function ServicesPage() {
   return (
     <section id="services" className="reveal">
       <div className="si">
-        <h1 className="sl">What We Do</h1>
-        <p className="st">The questions our clients bring us.</p>
+        <h1 className="sl">Services</h1>
+        <p className="st">The Questions That Shape What&#8217;s Next</p>
 
         <h2 className="sr-only">Our Services</h2>
         <ServiceGrid />

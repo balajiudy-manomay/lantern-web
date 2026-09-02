@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Pulse | Insights & Perspectives",
+  title: "Market Pulse | Signals Behind AI, Automation and Growth",
 
   description:
-    "ERead expert perspectives on AI, automation, governance, and business transformation.",
+    "Eight signals on AI adoption, governance, workflow redesign and automation from McKinsey, BCG, Deloitte/HBR, HBR and IDC.",
 
   keywords: [
-    "Pulse",
+    "Market Pulse",
     "AI Insights",
     "Industry Trends",
     "Thought Leadership",
@@ -17,7 +17,6 @@ export const metadata: Metadata = {
     "AI Governance",
     "Data Intelligence",
     "Digital Transformation",
-    "Innovation",
   ],
 
   alternates: {
@@ -25,100 +24,189 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "Pulse | Insights & Perspectives",
+    title: "Market Pulse | Signals Behind AI, Automation and Growth",
     description:
-      "Read expert perspectives on AI, automation, governance, and business transformation.",
+      "Eight signals on AI adoption, governance, workflow redesign and automation from McKinsey, BCG, Deloitte/HBR, HBR and IDC.",
     url: "/pulse",
   },
 
   twitter: {
-    title: "Pulse | Insights & Perspectives",
+    title: "Market Pulse | Signals Behind AI, Automation and Growth",
     description:
-      "Read expert perspectives on AI, automation, governance, and business transformation.",
+      "Eight signals on AI adoption, governance, workflow redesign and automation from McKinsey, BCG, Deloitte/HBR, HBR and IDC.",
   },
 };
 
+const sources = ["MCKINSEY", "BCG", "DELOITTE / HBR", "HBR", "IDC 2025", "MCKINSEY & BCG"];
+
+function Gauge({ pct }: { pct: number }) {
+  const c = 327;
+  const offset = c - (c * pct) / 100;
+  return (
+    <svg className="mp-gauge" width="104" height="104" viewBox="0 0 124 124">
+      <circle cx="62" cy="62" r="52" fill="none" stroke="var(--bg2)" strokeWidth="7" />
+      <circle
+        cx="62" cy="62" r="52" fill="none" stroke="var(--teal)" strokeWidth="7"
+        strokeLinecap="round" strokeDasharray={c} strokeDashoffset={offset}
+      />
+    </svg>
+  );
+}
+
 export default function PulsePage() {
   return (
-    <>
-      <section id="pulse" className="reveal">
-        <div className="si max-w-[1100px] w-full">
-          <h1 className="sl">Pulse</h1>
-          <p className="st">Notes from the field.</p>
+    <section id="pulse" className="reveal">
+      <div className="mp-hero">
+        <div className="mp-hero-inner">
+          <div className="mp-eyebrow">
+            <span className="mp-dot"></span>
+            <span>Signal Set &middot; 08 Indicators</span>
+          </div>
+          <h1>Market Pulse</h1>
         </div>
-        <div className="pulse-board w-full">
-          <article className="pn p1 fl1"><div className="tape tape-teal"></div>
-            <h2 className="pn-stat highlight">40%</h2>
-            <p className="pn-quote">of agentic AI projects predicted to be cancelled by end of 2027.</p>
-            <span className="pn-src">Gartner, 2025</span>
+        <div className="mp-ticker-row">
+          <span className="mp-ticker-lbl">SOURCES</span>
+          <div className="mp-ticker-wrap">
+            <div className="mp-ticker">
+              {[...sources, ...sources].map((s, i) => (
+                <span key={i}>{s}{i < sources.length * 2 - 1 ? " ·" : ""}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="mp-body">
+        <div className="mp-grid-3">
+          <article className="mp-card">
+            <div className="mp-card-top">
+              <span className="mp-code">P-01</span>
+              <span className="mp-live"><span className="mp-dot" style={{ background: 'var(--teal)' }}></span>LIVE</span>
+            </div>
+            <div className="mp-figure-row">
+              <Gauge pct={5} />
+              <div>
+                <div className="mp-figure">5%</div>
+                <div className="mp-figure-lbl">AI VALUE REALISED</div>
+              </div>
+            </div>
+            <p className="mp-quote">Only 5% of companies achieve significant AI value as success depends on transforming data, processes and people &ndash; not just deploying AI.</p>
+            <div className="mp-source">MCKINSEY &amp; BCG</div>
           </article>
-          <article className="pn postit p2 fl2"><div className="tape left tape-pink"></div>
-            <h2 className="pn-stat" style={{ color: '#a07000' }}>88% / 8%</h2>
-            <p className="pn-quote">use AI, but only 8% have a comprehensive governance framework.</p>
-            <span className="pn-src">McKinsey, 2026</span>
+
+          <article className="mp-card">
+            <div className="mp-card-top">
+              <span className="mp-code">P-02</span>
+              <span className="mp-live"><span className="mp-dot" style={{ background: 'var(--teal)' }}></span>LIVE</span>
+            </div>
+            <div className="mp-figure-row">
+              <Gauge pct={40} />
+              <div>
+                <div className="mp-figure">40%</div>
+                <div className="mp-figure-lbl">CANCELLED BY 2027</div>
+              </div>
+            </div>
+            <p className="mp-quote">Of agentic AI projects predicted to be cancelled by end of 2027 due to unclear business value or adequate risk controls.</p>
+            <div className="mp-source">SOURCE TBC</div>
           </article>
-          <article className="pn p3 fl3">
-            <svg className="clip" viewBox="0 0 30 42">
-              <path d="M15 4 C 8 4, 5 9, 5 16 L 5 32 C 5 36, 8 38, 12 38 C 16 38, 19 36, 19 32 L 19 14 C 19 12, 17 11, 15 11 C 13 11, 11 12, 11 14 L 11 28" fill="none" stroke="#888" strokeWidth="2" strokeLinecap="round" />
+
+          <article className="mp-card">
+            <div className="mp-card-top">
+              <span className="mp-code">P-03</span>
+              <span className="mp-live"><span className="mp-dot" style={{ background: 'var(--teal)' }}></span>LIVE</span>
+            </div>
+            <div className="mp-figure-row">
+              <Gauge pct={60} />
+              <div>
+                <div className="mp-figure">60%</div>
+                <div className="mp-figure-lbl">PROJECTS FAILING</div>
+              </div>
+            </div>
+            <p className="mp-quote">Of AI projects fail due to poor data quality and readiness.</p>
+            <div className="mp-source">IDC, 2025</div>
+          </article>
+        </div>
+
+        <div className="mp-grid-2">
+          <article className="mp-card">
+            <div className="mp-headline">
+              <span className="mp-code">P-04 &middot; WORKFLOW REDESIGN</span>
+              <span className="mp-headline-fig">5.3&times;</span>
+            </div>
+            <div className="mp-bars">
+              <div>
+                <div className="mp-bar-top"><span>REDESIGNED WORKFLOWS</span><span>32%</span></div>
+                <div className="mp-bar-track"><div className="mp-bar-fill" style={{ width: '32%' }}></div></div>
+              </div>
+              <div>
+                <div className="mp-bar-top"><span>NO REDESIGN</span><span style={{ color: 'var(--mu)' }}>6%</span></div>
+                <div className="mp-bar-track"><div className="mp-bar-fill mu" style={{ width: '6%' }}></div></div>
+              </div>
+            </div>
+            <p className="mp-quote">Organizations redesigning workflows are 5.3&times; more likely to realize AI value.</p>
+            <div className="mp-source">MCKINSEY</div>
+          </article>
+
+          <article className="mp-card">
+            <div className="mp-headline">
+              <span className="mp-code">P-05 &middot; THE GOVERNANCE GAP</span>
+              <span className="mp-headline-fig" style={{ color: 'var(--hd)' }}>88% <span style={{ color: 'var(--mu)', fontSize: '.8rem' }}>/</span> 8%</span>
+            </div>
+            <div className="mp-bars">
+              <div>
+                <div className="mp-bar-top"><span>USING AI</span><span style={{ color: 'var(--hd)' }}>88%</span></div>
+                <div className="mp-bar-track"><div className="mp-bar-fill mu" style={{ width: '88%', background: 'var(--hd)' }}></div></div>
+              </div>
+              <div>
+                <div className="mp-bar-top"><span>COMPREHENSIVE GOVERNANCE FRAMEWORK</span><span>8%</span></div>
+                <div className="mp-bar-track"><div className="mp-bar-fill" style={{ width: '8%' }}></div></div>
+              </div>
+            </div>
+            <p className="mp-quote">Organizations use AI, but only 8% have a comprehensive AI governance framework.</p>
+            <div className="mp-source">MCKINSEY</div>
+          </article>
+        </div>
+
+        <div className="mp-grid-3">
+          <article className="mp-card">
+            <div className="mp-card-top">
+              <span className="mp-code">P-06 &middot; BIGGEST BARRIER</span>
+            </div>
+            <div className="mp-figure" style={{ fontSize: '2.4rem', marginBottom: '.9rem' }}>36%</div>
+            <div className="mp-bar-track" style={{ marginBottom: '1rem' }}><div className="mp-bar-fill" style={{ width: '36%' }}></div></div>
+            <p className="mp-quote">Organizations cite fragmented processes as the biggest barrier to intelligent automation.</p>
+            <div className="mp-source">DELOITTE / HBR</div>
+          </article>
+
+          <article className="mp-card">
+            <div className="mp-card-top">
+              <span className="mp-code">P-07 &middot; AI + AUTOMATION</span>
+            </div>
+            <div className="mp-figure" style={{ fontSize: '2.4rem', marginBottom: '.7rem' }}>+6%</div>
+            <svg width="100%" height="46" viewBox="0 0 260 52" preserveAspectRatio="none" style={{ display: 'block', marginBottom: '.9rem' }}>
+              <path d="M0 46 L52 40 L104 34 L156 24 L208 16 L260 4" fill="none" stroke="var(--teal)" strokeWidth="2" strokeLinecap="round" />
             </svg>
-            <h2 className="pn-stat gold highlight">2,000+</h2>
-            <p className="pn-quote">&#8216;death by AI&#8217; legal claims expected by end of 2026.</p>
-            <span className="pn-src">Gartner, 2025</span>
-          </article>
-          <article className="pn torn p4 fl4">
-            <h2 className="pn-stat">2/3</h2>
-            <p className="pn-quote">of organisations have not begun scaling AI across the enterprise.</p>
-            <span className="pn-src">McKinsey AI Survey</span>
-          </article>
-          <article className="pn postit postit-orange p5 fl5"><div className="tape right tape-teal"></div>
-            <h2 className="pn-stat" style={{ color: '#b04500' }}>60%</h2>
-            <p className="pn-quote">of AI projects fail due to poor data quality and readiness.</p>
-            <span className="pn-src">IDC, 2025</span>
-          </article>
-          <article className="pn p6 fl6"><div className="tape"></div>
-            <h2 className="pn-stat gold">35%</h2>
-            <p className="pn-quote">productivity gains in companies using AI agents at scale.</p>
-            <span className="pn-src">Deloitte, 2026</span>
+            <p className="mp-quote">More revenue by combining AI with automation instead of using either alone.</p>
+            <div className="mp-source">HBR</div>
           </article>
 
-          <div className="scrap-badge" style={{ top: '-15px', left: '280px', transform: 'rotate(-12deg)' }}>NEW<br />2027</div>
-          <div className="scrap-badge teal" style={{ top: '310px', left: '280px', transform: 'rotate(15deg)' }}>WATCH<br />OUT</div>
-          <div className="scrap-badge gold" style={{ top: '300px', right: '18px', transform: 'rotate(-15deg)' }}>+35%</div>
-
-          <span className="scrap-hand" style={{ top: '220px', left: '340px', transform: 'rotate(-6deg)' }}>trends to watch &#8594;</span>
-          <span className="scrap-hand gold" style={{ top: '300px', right: '240px', transform: 'rotate(6deg)' }}>important !</span>
-          <span className="scrap-hand red" style={{ top: '530px', left: '230px', transform: 'rotate(-4deg)' }}>don&#8217;t miss this</span>
-          <span className="scrap-marker" style={{ top: '55px', left: '580px', color: '#0F6E56', transform: 'rotate(-3deg)' }}>&gt;&gt; the big picture</span>
-          <span className="scrap-marker" style={{ bottom: '60px', left: '480px', color: '#c44', transform: 'rotate(2deg)' }}>read twice</span>
-
-          <svg className="scrap-doodle" style={{ top: '250px', left: '280px', width: '60px', height: '50px' }} viewBox="0 0 60 50">
-            <path d="M5 45 Q 20 10, 50 25 L 45 18 M 50 25 L 52 32" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-          </svg>
-          <svg className="scrap-doodle" style={{ top: '310px', right: '280px', width: '55px', height: '50px', color: 'var(--teal)' }} viewBox="0 0 55 50">
-            <path d="M50 45 Q 30 10, 5 25 L 12 18 M 5 25 L 6 32" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-          </svg>
-          <svg className="scrap-doodle" style={{ top: '510px', left: '170px', width: '60px', height: '40px', color: '#c44' }} viewBox="0 0 60 40">
-            <path d="M5 5 Q 30 35, 55 10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeDasharray="3 3" />
-            <path d="M55 10 L 48 6 M 55 10 L 52 17" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-          </svg>
-          <svg className="scrap-doodle" style={{ top: '80px', left: '-15px', width: '80px', height: '60px', color: 'var(--gold)' }} viewBox="0 0 80 60">
-            <path d="M 8 30 Q 5 8, 40 5 Q 75 8, 72 30 Q 75 52, 40 55 Q 5 52, 8 30 Z" fill="none" stroke="currentColor" strokeWidth="1.4" strokeDasharray="3 3" />
-          </svg>
-
-          <svg style={{ position: 'absolute', top: '50px', left: '520px', width: '18px', height: '18px', color: 'var(--gold)', opacity: '.6' }} viewBox="0 0 24 24">
-            <polygon points="12,2 15,9 22,9 17,14 19,21 12,17 5,21 7,14 2,9 9,9" fill="currentColor" />
-          </svg>
-          <svg style={{ position: 'absolute', top: '380px', left: '740px', width: '14px', height: '14px', color: 'var(--teal)', opacity: '.6' }} viewBox="0 0 24 24">
-            <polygon points="12,2 15,9 22,9 17,14 19,21 12,17 5,21 7,14 2,9 9,9" fill="currentColor" />
-          </svg>
-          <svg style={{ position: 'absolute', bottom: '140px', right: '120px', width: '16px', height: '16px', color: 'var(--gold)', opacity: '.6' }} viewBox="0 0 24 24">
-            <polygon points="12,2 15,9 22,9 17,14 19,21 12,17 5,21 7,14 2,9 9,9" fill="currentColor" />
-          </svg>
-          <svg style={{ position: 'absolute', bottom: '40px', left: '120px', width: '160px', height: '14px', color: 'var(--gold)', opacity: '.6' }} viewBox="0 0 160 14">
-            <path d="M 5 7 Q 40 14, 80 6 T 155 7" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-          </svg>
+          <article className="mp-card dark">
+            <div className="mp-card-top">
+              <span className="mp-code">P-08 &middot; WHAT DECIDES IT</span>
+            </div>
+            <div className="mp-strategy">
+              <strong>Strategy</strong>
+              <span className="mp-gt">&gt;</span>
+              <em>Tools</em>
+            </div>
+            <div className="mp-bar-track" style={{ background: 'rgba(255,255,255,.14)', marginBottom: '1rem' }}>
+              <div className="mp-bar-fill" style={{ width: '72%', background: 'linear-gradient(90deg,#4ade9b,rgba(74,222,155,.25))' }}></div>
+            </div>
+            <p className="mp-quote">Long-term AI success depends more on strategy than on technology alone.</p>
+            <div className="mp-source">BCG</div>
+          </article>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
