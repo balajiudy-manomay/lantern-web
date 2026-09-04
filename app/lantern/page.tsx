@@ -76,7 +76,7 @@ export default function LanternPage() {
   return (
     <section id="lantern-advantage" className="reveal">
       <div className="si">
-        <h1 className="sl">The Lantern</h1>
+        <h1 className="sl">Lantern</h1>
         <p className="st" style={{ maxWidth: '760px' }}>The Lantern Advantage</p>
         <p className="la-intro">
           AI isn’t the answer to every business problem. Lantern works at the

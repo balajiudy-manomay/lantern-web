@@ -89,7 +89,7 @@ export default function ServicesPage() {
                 <td>Capacity unlocked. Cost reduced. People freed.</td>
               </tr>
               <tr>
-                <td>QA &amp; Assurance</td>
+                <td>Quality &amp; Assurance</td>
                 <td>Final review, context</td>
                 <td>Error detection</td>
                 <td>Continuous monitoring</td>
@@ -110,13 +110,6 @@ export default function ServicesPage() {
                 <td>Change that outlasts the programme</td>
               </tr>
               <tr>
-                <td>Managed Operations</td>
-                <td>Oversight, judgement</td>
-                <td>Anomaly detection</td>
-                <td>Workflow execution</td>
-                <td>Your operations. Our obsession.</td>
-              </tr>
-              <tr>
                 <td>Third Party Solutions</td>
                 <td>Stakeholder management</td>
                 <td>Configuration AI</td>
@@ -128,10 +121,10 @@ export default function ServicesPage() {
                 <td>Cultural alignment</td>
                 <td>Adoption analytics</td>
                 <td>Training automation</td>
-                <td>Technology only works when people actually use it</td>
+                <td>Increase adoption. Investments realized in business outcomes</td>
               </tr>
               <tr>
-                <td>BPO / KPO Transformation</td>
+                <td>Managed Operations</td>
                 <td>Judgment, escalation handling</td>
                 <td>Quality analytics, decision support</td>
                 <td>Workflow execution, document processing</td>

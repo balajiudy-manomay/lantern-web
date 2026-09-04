@@ -24,8 +24,8 @@ export default function Nav({ toggleTheme }: { toggleTheme: () => void }) {
     toggleMob();
   };
 
-  const aboutActive = pathname === "/about" || pathname === "/complexity";
-  const pulseActive = pathname === "/pulse" || pathname === "/faqs";
+  const servicesActive = pathname === "/services" || pathname === "/pulse";
+  const aboutActive = pathname === "/about" || pathname === "/faqs";
 
   return (
     <>
@@ -35,14 +35,14 @@ export default function Nav({ toggleTheme }: { toggleTheme: () => void }) {
             <LanternLogo className="nav-logo-img" />
           </Link>
           <ul className="nav-links">
-            <li><Link href="/lantern" onClick={(e) => handleLinkClick(e, "/lantern")} className={pathname === "/lantern" ? "active" : ""}>The Lantern</Link></li>
-            <li><Link href="/services" onClick={(e) => handleLinkClick(e, "/services")} className={pathname === "/services" ? "active" : ""}>Services</Link></li>
+            <li><Link href="/complexity" onClick={(e) => handleLinkClick(e, "/complexity")} className={pathname === "/complexity" ? "active" : ""}>Landscape</Link></li>
+            <li><Link href="/lantern" onClick={(e) => handleLinkClick(e, "/lantern")} className={pathname === "/lantern" ? "active" : ""}>Lantern</Link></li>
             <li className="nav-drop">
-              <Link href="/pulse" onClick={(e) => handleLinkClick(e, "/pulse")} className={pulseActive ? "active" : ""}>Pulse</Link>
+              <Link href="/services" onClick={(e) => handleLinkClick(e, "/services")} className={servicesActive ? "active" : ""}>Services</Link>
               <div className="nav-drop-panel">
                 <div className="nav-drop-panel-inner">
+                  <Link href="/services" onClick={(e) => handleLinkClick(e, "/services")}>Services</Link>
                   <Link href="/pulse" onClick={(e) => handleLinkClick(e, "/pulse")}>Market Pulse</Link>
-                  <Link href="/faqs" onClick={(e) => handleLinkClick(e, "/faqs")}>FAQs</Link>
                 </div>
               </div>
             </li>
@@ -52,11 +52,11 @@ export default function Nav({ toggleTheme }: { toggleTheme: () => void }) {
               <div className="nav-drop-panel">
                 <div className="nav-drop-panel-inner">
                   <Link href="/about" onClick={(e) => handleLinkClick(e, "/about")}>About Lantern</Link>
-                  <Link href="/complexity" onClick={(e) => handleLinkClick(e, "/complexity")}>From Complexity To Clarity</Link>
+                  <Link href="/faqs" onClick={(e) => handleLinkClick(e, "/faqs")}>FAQs</Link>
                 </div>
               </div>
             </li>
-            <li><Link href="/contact" onClick={(e) => handleLinkClick(e, "/contact")} className={pathname === "/contact" ? "active" : ""}>Contact</Link></li>
+            <li><Link href="/contact" onClick={(e) => handleLinkClick(e, "/contact")} className={pathname === "/contact" ? "active" : ""}>Connect</Link></li>
           </ul>
           <div className="nav-actions">
             <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme" title="Toggle theme">
@@ -76,20 +76,20 @@ export default function Nav({ toggleTheme }: { toggleTheme: () => void }) {
       </nav>
       <div className={`mobile-menu ${mobileMenuOpen ? 'active' : ''}`} id="mm">
         <button className="mobile-close" onClick={toggleMob}>&times;</button>
-        <Link href="/lantern" onClick={(e) => handleMobileLinkClick(e, "/lantern")}>The Lantern</Link>
-        <Link href="/services" onClick={(e) => handleMobileLinkClick(e, "/services")}>Services</Link>
+        <Link href="/complexity" onClick={(e) => handleMobileLinkClick(e, "/complexity")}>Landscape</Link>
+        <Link href="/lantern" onClick={(e) => handleMobileLinkClick(e, "/lantern")}>Lantern</Link>
         <div className="mm-group">
-          <span className="mm-label">Pulse</span>
+          <span className="mm-label">Services</span>
+          <Link href="/services" onClick={(e) => handleMobileLinkClick(e, "/services")}>Services</Link>
           <Link href="/pulse" onClick={(e) => handleMobileLinkClick(e, "/pulse")}>Market Pulse</Link>
-          <Link href="/faqs" onClick={(e) => handleMobileLinkClick(e, "/faqs")}>FAQs</Link>
         </div>
         <Link href="/industries" onClick={(e) => handleMobileLinkClick(e, "/industries")}>Industries</Link>
         <div className="mm-group">
           <span className="mm-label">About</span>
           <Link href="/about" onClick={(e) => handleMobileLinkClick(e, "/about")}>About Lantern</Link>
-          <Link href="/complexity" onClick={(e) => handleMobileLinkClick(e, "/complexity")}>From Complexity To Clarity</Link>
+          <Link href="/faqs" onClick={(e) => handleMobileLinkClick(e, "/faqs")}>FAQs</Link>
         </div>
-        <Link href="/contact" onClick={(e) => handleMobileLinkClick(e, "/contact")}>Contact</Link>
+        <Link href="/contact" onClick={(e) => handleMobileLinkClick(e, "/contact")}>Connect</Link>
       </div>
     </>
   );

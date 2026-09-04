@@ -83,7 +83,7 @@ export default function IndustriesPage() {
 
       <section className="reveal" style={{ background: 'var(--bg)' }}>
         <div className="si">
-          <h2 className="st" style={{ maxWidth: '700px' }}>Across the functions that make the business work</h2>
+          <h2 className="st" style={{ maxWidth: '700px' }}>Across Business Functions</h2>
           <p className="ab-intro" style={{ marginBottom: '1.6rem' }}>
             Our work isn&#8217;t limited to an industry&#8217;s core function. We
             work across the interconnected functions that shape how a

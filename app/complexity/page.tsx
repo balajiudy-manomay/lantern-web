@@ -98,12 +98,6 @@ export default function ComplexityPage() {
           operational, strategic and organisational challenges that stand
           between where they are and where they want to go.
         </p>
-        <p className="cx-partner">
-          In partnership with{" "}
-          <a href="https://manomay.biz" target="_blank" rel="noopener">
-            Manomay Innsurtech
-          </a>
-        </p>
 
         <p className="sl">Eight Challenges</p>
         <div className="cx-stack">

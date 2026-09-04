@@ -3,14 +3,14 @@ export default function Footer() {
     <footer className="footer">
       <div className="ft-tag">&#8220;Light Within. Clarity Beyond.&#8221;</div>
       <div className="ft-links">
-        <a href="/about">About</a>
-        <a href="/complexity">From Complexity To Clarity</a>
-        <a href="/lantern">The Lantern</a>
+        <a href="/complexity">Landscape</a>
+        <a href="/lantern">Lantern</a>
         <a href="/services">Services</a>
-        <a href="/pulse">Pulse</a>
-        <a href="/faqs">FAQs</a>
+        <a href="/pulse">Market Pulse</a>
         <a href="/industries">Industries</a>
-        <a href="/contact">Contact</a>
+        <a href="/about">About</a>
+        <a href="/faqs">FAQs</a>
+        <a href="/contact">Connect</a>
       </div>
       <p className="ft-copy">
         &copy; 2026 Lantern Private Limited &middot; In partnership with <a href="https://manomay.biz" target="_blank" rel="noopener noreferrer">Manomay Innsurtech</a>
