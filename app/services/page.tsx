@@ -82,7 +82,7 @@ export default function ServicesPage() {
                 <td>A strategy the board can fund and the team can execute</td>
               </tr>
               <tr>
-                <td>Automation &amp; Ops</td>
+                <td>Automated Operations</td>
                 <td>Exception handling</td>
                 <td>Decision support</td>
                 <td>Process execution</td>

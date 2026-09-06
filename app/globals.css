@@ -165,13 +165,14 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75rem 2rem;
+  padding: 0.36rem 2rem;
   gap: 1.5rem;
 }
 
 .nav-logo {
   display: flex;
   align-items: center;
+  gap: 0.65rem;
   flex-shrink: 0;
   cursor: pointer;
 }
@@ -181,6 +182,31 @@ a:hover {
   width: auto;
   display: block;
   color: #fff;
+}
+
+.nav-logo-icon {
+  height: 54px;
+  width: 54px;
+  display: block;
+}
+
+.nav-logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  font-family: var(--sf);
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+
+.nav-logo-sub {
+  margin-top: 0.3rem;
+  font-size: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  color: var(--gold);
 }
 
 .hero-logo-img {
@@ -960,6 +986,7 @@ section {
   margin-top: 1.8rem;
   padding-top: 1.6rem;
   border-top: 1px solid var(--bdr2);
+  font-weight: 500;
 }
 
 .fn-grid {
@@ -1181,6 +1208,8 @@ section {
 }
 
 .sv-card {
+  --mx: 50%;
+  --my: 50%;
   background: var(--card);
   border: 1px solid var(--bdr2);
   border-left: 3px solid var(--teal);
@@ -1193,10 +1222,28 @@ section {
   overflow: hidden;
 }
 
+.sv-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    260px circle at var(--mx) var(--my),
+    rgba(74, 127, 201, 0.17),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
 .sv-card:hover {
   border-top-color: var(--teal);
   transform: translateY(-3px);
   box-shadow: 0 10px 24px rgba(14, 47, 88, 0.08);
+}
+
+.sv-card:hover::after {
+  opacity: 1;
 }
 
 .sv-num-circle {
@@ -2246,6 +2293,7 @@ section {
   color: var(--hd);
   padding: 0;
   transition: color 0.25s;
+  font-weight: 500;
 }
 
 .faq-q:hover {
@@ -2500,6 +2548,15 @@ section {
 
   .nav-logo-img {
     height: 36px;
+  }
+
+  .nav-logo-icon {
+    height: 42px;
+    width: 42px;
+  }
+
+  .nav-logo-text {
+    font-size: 0.9rem;
   }
 
   .hero-logo-img {

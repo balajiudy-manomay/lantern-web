@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <footer className="footer">
-      <div className="ft-tag">&#8220;Light Within. Clarity Beyond.&#8221;</div>
+      <div className="ft-tag">Light Within. Clarity Beyond.</div>
       <div className="ft-links">
         <a href="/complexity">Landscape</a>
         <a href="/lantern">Lantern</a>

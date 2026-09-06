@@ -121,14 +121,14 @@ export default function ComplexityPage() {
 
         <div className="ab-grid mt-20!">
           <div className="ab-card">
-            <h3>Built to Scale</h3>
+            <h3 className="font-bold!">Built to Scale</h3>
             <p>
               Designed to help you find the right way to scale as your
               business grows.
             </p>
           </div>
           <div className="ab-card">
-            <h3>Outcome Driven</h3>
+            <h3 className="font-bold!">Outcome Driven</h3>
             <p>
               Work is complete only when it creates the outcomes that move
               your business forward. We measure our work by the impact it
@@ -136,7 +136,7 @@ export default function ComplexityPage() {
             </p>
           </div>
           <div className="ab-card">
-            <h3>Industry &amp; Functional Depth</h3>
+            <h3 className="font-bold!">Industry &amp; Functional Depth</h3>
             <p>
               From IT and AI to accounting, legal, logistics and beyond, we
               understand how businesses are built, how they operate, and

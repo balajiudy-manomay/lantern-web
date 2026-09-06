@@ -50,7 +50,7 @@ const bannerStats = [
     code: "P-02",
     figure: "40%",
     desc: "Of agentic AI projects are predicted to be cancelled by end of 2027, due to unclear business value or inadequate risk controls.",
-    source: "Source TBC",
+    source: "Gartner",
   },
   {
     code: "P-03",

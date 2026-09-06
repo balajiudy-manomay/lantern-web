@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import LanternLogo from "./icons/lantern-logo";
+import LanternLogoIcon from "./icons/lantern-logo-icon";
 
 export default function Nav({ toggleTheme }: { toggleTheme: () => void }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -32,7 +32,7 @@ export default function Nav({ toggleTheme }: { toggleTheme: () => void }) {
       <nav className="nav">
         <div className="nav-inner">
           <Link href="/" onClick={(e) => handleLinkClick(e, "/")} className="nav-logo">
-            <LanternLogo className="nav-logo-img" />
+            <LanternLogoIcon className="nav-logo-icon" />
           </Link>
           <ul className="nav-links">
             <li><Link href="/complexity" onClick={(e) => handleLinkClick(e, "/complexity")} className={pathname === "/complexity" ? "active" : ""}>Landscape</Link></li>

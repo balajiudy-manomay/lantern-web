@@ -63,8 +63,7 @@ export default function AboutPage() {
       />
       <section id="about" className="reveal">
         <div className="si">
-          <h1 className="sl">About Lantern</h1>
-          <p className="st">Growth Depends On More Than Ambition</p>
+          <p className="st">About Lantern</p>
           <p className="ab-intro">
             As organisations grow, evolve or take on new opportunities, the
             ways of working that once enabled progress can start creating
@@ -81,38 +80,23 @@ export default function AboutPage() {
                   <path d="M12 7v5l3 2" />
                 </svg>
               </span>
-              Our Mission
+              <span className="font-bolder! text-2xl">Our Mission</span>
             </h2>
             <p className="ab-intro">
-              Every business is built differently. Its people and culture,
-              processes, technology and data, operating model, business model
-              and strategy come together to create what the organisation is
-              today. What helped a business get here, however, can sometimes
-              become what holds it back from going further.
+              Every organisation is shaped by the way its people, processes, technology, business model, operating model, and strategy work together. These elements evolve over time to help the business succeed—but what enables growth at one stage can become a constraint at the next.
             </p>
             <p className="ab-intro">
-              When leaders recognise that, they are often offered a
-              pre-defined solution. Consulting firms may design the
-              strategy, while implementation is left to someone else. The
-              result can be a solution that looks right on paper but is
-              difficult to make work in the real world.
+              When leaders recognise these constraints, they are often presented with solutions shaped by the capabilities and offerings of the provider, rather than by what the organisation truly needs. A strategy can be compelling on paper, yet difficult to execute when it does not fully reflect the organisation’s realities or when the capabilities and resources required to bring it to life are not in place. This gap between strategy and execution can ultimately prevent organisations from realising the value of their investments.
             </p>
-            <p className="ms-callout">We believe there is a better way.</p>
+            <p className="ms-callout">At Lantern, We believe there is a better way.</p>
             <p className="ab-intro">
-              We understand how your business works, where it is in its
-              growth journey, and what is really behind the challenge you
-              are trying to solve. We then work with you to address the root
-              issue, design what fits your organisation, and stay alongside
-              you through execution&mdash;until the investment translates
-              into real business outcomes.
+              We start by understanding how the business actually works, where it is in its growth journey, and what is truly driving the challenge. From there, we work with leaders to address the root issue, design what fits the organisation, and partner with them through execution—until the investment translates into measurable business outcomes.
             </p>
             <p className="ab-intro" style={{ marginBottom: 0 }}>
-              Our goal is simple: to help build organisations where the very
-              elements that once limited growth become a source of strength.
+              The goal is simple: to help organisations turn the very elements that once constrained growth into sources of competitive advantage.
             </p>
             <p className="ms-close">
-              Your organisation should be a leader&#8217;s superpower, not
-              their limitation.
+              We want to build organisations that become a leader's superpower -  not a limitation.
             </p>
           </div>
 
@@ -127,8 +111,8 @@ export default function AboutPage() {
                 />
               </div>
               <div className="fn-info">
-                <p className="fn-label">Founder &amp; CEO</p>
                 <h3 className="fn-name">Krishna Kumari Datla</h3>
+                <p className="fn-label">Founder &amp; CEO</p>
                 <p className="fn-quote">
                   &#8220;The future should not merely be more intelligent
                   &mdash; it should be more human.&#8221;
@@ -165,8 +149,8 @@ export default function AboutPage() {
                 />
               </div>
               <div className="fn-info">
-                <p className="fn-label">Co-founder</p>
                 <h3 className="fn-name">KSVL Narasimham</h3>
+                <p className="fn-label">Co-founder</p>
                 <p className="fn-quote">
                   &#8220;Lasting transformation is engineered with the same care
                   as a finely crafted instrument &mdash; every part purposeful,
