@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ChevronDown, Menu, X } from "lucide-react";
 import LanternLogoFull from "./icons/lantern-logo-full";
 import {
   NavigationMenu,
@@ -12,6 +13,14 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "./ui/navigation-menu";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "./ui/drawer";
 
 function DropdownItem({
   href,
@@ -37,6 +46,34 @@ function DropdownItem({
         }
       />
     </li>
+  );
+}
+
+function MobileNavGroup({
+  label,
+  defaultOpen,
+  children,
+}: {
+  label: string;
+  defaultOpen?: boolean;
+  children: React.ReactNode;
+}) {
+  const [open, setOpen] = useState(!!defaultOpen);
+  return (
+    <div className="mm-accordion">
+      <button
+        type="button"
+        className="mm-accordion-trigger"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+      >
+        <span>{label}</span>
+        <ChevronDown size={18} aria-hidden="true" className={`mm-accordion-chevron${open ? " open" : ""}`} />
+      </button>
+      <div className={`mm-accordion-panel${open ? " open" : ""}`}>
+        <div className="mm-accordion-panel-inner">{children}</div>
+      </div>
+    </div>
   );
 }
 
@@ -133,29 +170,44 @@ export default function Nav({ toggleTheme }: { toggleTheme: () => void }) {
                 <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
               </svg>
             </button>
-            <button className="hamburger" onClick={toggleMob} aria-label="Menu">
-              <span></span><span></span><span></span>
-            </button>
+            <Drawer open={mobileMenuOpen} onOpenChange={setMobileMenuOpen} swipeDirection="right">
+              <DrawerTrigger
+                render={
+                  <button className="hamburger" aria-label="Menu">
+                    <Menu size={22} aria-hidden="true" />
+                  </button>
+                }
+              />
+              <DrawerContent className="mm-drawer bg-[var(--card)] text-[var(--hd)]">
+                <DrawerHeader className="mm-drawer-head">
+                  <DrawerTitle className="mm-drawer-title">Menu</DrawerTitle>
+                  <DrawerClose
+                    render={
+                      <button className="mobile-close" aria-label="Close menu">
+                        <X size={20} aria-hidden="true" />
+                      </button>
+                    }
+                  />
+                </DrawerHeader>
+                <nav className="mm-links">
+                  <Link className="mm-row" href="/complexity" onClick={(e) => handleMobileLinkClick(e, "/complexity")}>Landscape</Link>
+                  <Link className="mm-row" href="/lantern" onClick={(e) => handleMobileLinkClick(e, "/lantern")}>Lantern</Link>
+                  <MobileNavGroup label="Services" defaultOpen={servicesActive}>
+                    <Link href="/services" onClick={(e) => handleMobileLinkClick(e, "/services")}>Services</Link>
+                    <Link href="/pulse" onClick={(e) => handleMobileLinkClick(e, "/pulse")}>Market Pulse</Link>
+                  </MobileNavGroup>
+                  <Link className="mm-row" href="/industries" onClick={(e) => handleMobileLinkClick(e, "/industries")}>Industries</Link>
+                  <MobileNavGroup label="About" defaultOpen={aboutActive}>
+                    <Link href="/about" onClick={(e) => handleMobileLinkClick(e, "/about")}>About Lantern</Link>
+                    <Link href="/faqs" onClick={(e) => handleMobileLinkClick(e, "/faqs")}>FAQs</Link>
+                  </MobileNavGroup>
+                  <Link className="mm-row" href="/contact" onClick={(e) => handleMobileLinkClick(e, "/contact")}>Connect</Link>
+                </nav>
+              </DrawerContent>
+            </Drawer>
           </div>
         </div>
       </nav>
-      <div className={`mobile-menu ${mobileMenuOpen ? 'active' : ''}`} id="mm">
-        <button className="mobile-close" onClick={toggleMob} aria-label="Close menu">&times;</button>
-        <Link href="/complexity" onClick={(e) => handleMobileLinkClick(e, "/complexity")}>Landscape</Link>
-        <Link href="/lantern" onClick={(e) => handleMobileLinkClick(e, "/lantern")}>Lantern</Link>
-        <div className="mm-group">
-          <span className="mm-label">Services</span>
-          <Link href="/services" onClick={(e) => handleMobileLinkClick(e, "/services")}>Services</Link>
-          <Link href="/pulse" onClick={(e) => handleMobileLinkClick(e, "/pulse")}>Market Pulse</Link>
-        </div>
-        <Link href="/industries" onClick={(e) => handleMobileLinkClick(e, "/industries")}>Industries</Link>
-        <div className="mm-group">
-          <span className="mm-label">About</span>
-          <Link href="/about" onClick={(e) => handleMobileLinkClick(e, "/about")}>About Lantern</Link>
-          <Link href="/faqs" onClick={(e) => handleMobileLinkClick(e, "/faqs")}>FAQs</Link>
-        </div>
-        <Link href="/contact" onClick={(e) => handleMobileLinkClick(e, "/contact")}>Connect</Link>
-      </div>
     </>
   );
 }
