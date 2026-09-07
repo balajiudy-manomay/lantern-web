@@ -8,12 +8,18 @@ const officePin = worldMap.addPin({
   lng: 78.6569,
   svgOptions: { color: "transparent", radius: 0.6 },
 });
-const worldMapSvg = worldMap.getSVG({
-  radius: 0.22,
-  color: "var(--mu2)",
-  shape: "circle",
-  backgroundColor: "transparent",
-});
+const worldMapSvg = worldMap
+  .getSVG({
+    radius: 0.22,
+    color: "var(--mu2)",
+    shape: "circle",
+    backgroundColor: "transparent",
+  })
+  // dotted-map repeats fill="var(--mu2)" on every one of the ~3,000 dots;
+  // hoist it onto a single wrapping <g> so each <circle> only carries cx/cy/r.
+  .replace(/ fill="var\(--mu2\)"/g, "")
+  .replace(/(<svg[^>]*>)/, `$1<g fill="var(--mu2)">`)
+  .replace("</svg>", "</g></svg>");
 const pinLeftPct = officePin ? (officePin.x / worldMap.image.width) * 100 : 50;
 const pinTopPct = officePin ? (officePin.y / worldMap.image.height) * 100 : 50;
 

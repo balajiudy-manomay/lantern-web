@@ -101,14 +101,7 @@ export default function AboutPage() {
                   &mdash; it should be more human.&#8221;
                 </p>
                 <p className="fn-bio">
-                  I believe that Technology is at its best when it helps people see further,
-                  think deeper, and create more than they could alone. Lantern
-                  explores the space where human ingenuity meets artificial
-                  intelligence, where automation removes friction and people
-                  rediscover purpose. Like a lantern carried through unfamiliar
-                  terrain, our work is guided by a simple conviction: that the
-                  future should not merely be more intelligent &mdash; it should
-                  be more human.
+                  Technology is at its best when it helps people see further, think deeper, and create more than they could alone. Lantern explores the space where human ingenuity meets artificial intelligence, where automation removes friction and people rediscover purpose. Like a lantern carried through unfamiliar terrain, our work is guided by a simple conviction: that the future should not merely be more intelligent — it should be more human.
                 </p>
               </div>
             </div>
@@ -133,14 +126,7 @@ export default function AboutPage() {
                   every connection considered.&#8221;
                 </p>
                 <p className="fn-bio">
-                  I believe that Great technology is built quietly, through clarity of thought,
-                  discipline of design, and depth of understanding. At Lantern,
-                  we shape the architecture that turns ambition into outcome,
-                  ensuring every system we build stands the test of scale,
-                  scrutiny, and time. My conviction is simple: Lasting
-                  transformation is engineered with the same care as a finely
-                  crafted instrument &mdash; every part purposeful, every
-                  connection considered, every detail deliberate.
+                  Great technology is built quietly, through clarity of thought, discipline of design, and depth of understanding. At Lantern, we shape the architecture that turns ambition into outcome, ensuring every system we build stands the test of scale, scrutiny, and time. My conviction is simple: Lasting transformation is engineered with the same care as a finely crafted instrument — every part purposeful, every connection considered, every detail deliberate.
                 </p>
               </div>
             </div>
