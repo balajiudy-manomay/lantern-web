@@ -66,7 +66,7 @@ export default function Nav({ toggleTheme }: { toggleTheme: () => void }) {
     <>
       <nav className="nav">
         <div className="nav-inner">
-          <Link href="/" onClick={(e) => handleLinkClick(e, "/")} className="nav-logo">
+          <Link href="/" onClick={(e) => handleLinkClick(e, "/")} className="nav-logo" aria-label="Lantern home">
             <LanternLogoFull className="nav-logo-icon" height={28} />
           </Link>
           <NavigationMenu className="max-w-none">
@@ -140,7 +140,7 @@ export default function Nav({ toggleTheme }: { toggleTheme: () => void }) {
         </div>
       </nav>
       <div className={`mobile-menu ${mobileMenuOpen ? 'active' : ''}`} id="mm">
-        <button className="mobile-close" onClick={toggleMob}>&times;</button>
+        <button className="mobile-close" onClick={toggleMob} aria-label="Close menu">&times;</button>
         <Link href="/complexity" onClick={(e) => handleMobileLinkClick(e, "/complexity")}>Landscape</Link>
         <Link href="/lantern" onClick={(e) => handleMobileLinkClick(e, "/lantern")}>Lantern</Link>
         <div className="mm-group">

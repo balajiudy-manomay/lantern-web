@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, ReactNode } from "react";
+import { useState, useEffect, useRef, ReactNode } from "react";
 import Nav from "./Nav";
 import Footer from "./Footer";
 import { ModalProvider, useModal } from "./ModalContext";
@@ -10,14 +10,44 @@ import { serviceIcons } from "./icons/service-icons";
 function ModalOverlay() {
   const { modalData, closeModal } = useModal();
   const router = useRouter();
+  const dialogRef = useRef<HTMLDivElement | null>(null);
+  const triggerRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") closeModal();
+      if (e.key === "Escape") {
+        closeModal();
+        return;
+      }
+      if (e.key === "Tab" && dialogRef.current) {
+        const focusable = dialogRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     };
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [closeModal]);
+
+  useEffect(() => {
+    if (modalData) {
+      triggerRef.current = document.activeElement as HTMLElement;
+      dialogRef.current?.focus();
+    } else if (triggerRef.current) {
+      triggerRef.current.focus();
+      triggerRef.current = null;
+    }
+  }, [modalData]);
 
   if (!modalData) return null;
 
@@ -25,7 +55,14 @@ function ModalOverlay() {
 
   return (
     <div className="mo active" onClick={(e) => { if (e.target === e.currentTarget) closeModal(); }}>
-      <div className="md" role="dialog" aria-modal="true">
+      <div
+        className="md"
+        role="dialog"
+        aria-modal="true"
+        aria-label={modalData.q}
+        ref={dialogRef}
+        tabIndex={-1}
+      >
         <button className="md-x" onClick={closeModal} aria-label="Close">&times;</button>
         <div id="mb">
           <div className="md-head ">

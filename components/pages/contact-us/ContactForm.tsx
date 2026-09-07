@@ -66,8 +66,10 @@ export default function ContactForm() {
       <button type="submit" disabled={status === "loading"}>
         {status === "loading" ? "Sending..." : "Send Message"}
       </button>
-      {status === "success" && <p style={{ color: "green", marginTop: "1rem" }}>Thank you. We will be in touch shortly.</p>}
-      {status === "error" && <p style={{ color: "red", marginTop: "1rem" }}>Something went wrong. Please try again.</p>}
+      <div role="status" aria-live="polite">
+        {status === "success" && <p style={{ color: "green", marginTop: "1rem" }}>Thank you. We will be in touch shortly.</p>}
+        {status === "error" && <p style={{ color: "red", marginTop: "1rem" }}>Something went wrong. Please try again.</p>}
+      </div>
     </form>
   );
 }

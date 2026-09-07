@@ -100,8 +100,7 @@ export default function PulsePage() {
   return (
     <section id="pulse" className="reveal">
       <div className="si pt-20!">
-        <h1 className="sl"></h1>
-        <p className="st">Market Pulse</p>
+        <h1 className="st">Market Pulse</h1>
 
         <div className="mp-banner ">
           {bannerStats.map((s) => (

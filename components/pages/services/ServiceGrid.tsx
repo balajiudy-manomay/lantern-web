@@ -18,7 +18,21 @@ export default function ServiceGrid() {
       {servicesData.map((s, i) => {
         const Icon = serviceIcons[s.n];
         return (
-          <article key={i} className="sv-card" onClick={() => openModal(s)} onMouseMove={handleSpotlight}>
+          <article
+            key={i}
+            className="sv-card"
+            role="button"
+            tabIndex={0}
+            aria-label={`View details: ${s.c}`}
+            onClick={() => openModal(s)}
+            onMouseMove={handleSpotlight}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                openModal(s);
+              }
+            }}
+          >
             <h3 className="sv-cat">
               <span className="sv-num-circle">{s.n}</span>
               {s.c}

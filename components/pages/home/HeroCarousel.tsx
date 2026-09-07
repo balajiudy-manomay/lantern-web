@@ -30,19 +30,22 @@ export default function HeroCarousel({ quotes }: HeroCarouselProps) {
         {quotes.map((q, i) => (
           <blockquote key={i} className={`qs ${i === cur ? "active" : ""}`}>
             <p className="qt">&ldquo;{q.text}&rdquo;</p>
-            <span className="qcta" onClick={() => openModal(q.serviceData)}>
+            <button type="button" className="qcta" onClick={() => openModal(q.serviceData)}>
               {q.ctaText}
-            </span>
+            </button>
           </blockquote>
         ))}
       </div>
       <div className="hdots" id="hd">
         {quotes.map((_, i) => (
-          <div
+          <button
+            type="button"
             key={i}
             className={`hdot ${i === cur ? "active" : ""}`}
             onClick={() => setCur(i)}
-          ></div>
+            aria-label={`Show quote ${i + 1} of ${quotes.length}`}
+            aria-current={i === cur ? "true" : undefined}
+          ></button>
         ))}
       </div>
     </>

@@ -63,7 +63,7 @@ export default function AboutPage() {
       />
       <section id="about" className="reveal">
         <div className="si">
-          <p className="st">Our Mission</p>
+          <h1 className="st">Our Mission</h1>
           <div className="ms-panel">
             <p className="ab-intro">
               Every organisation is shaped by the way its people, processes, technology, business model, operating model, and strategy work together. These elements evolve over time to help the business succeed—but what enables growth at one stage can become a constraint at the next.
