@@ -63,25 +63,8 @@ export default function AboutPage() {
       />
       <section id="about" className="reveal">
         <div className="si">
-          <p className="st">About Lantern</p>
-          <p className="ab-intro">
-            As organisations grow, evolve or take on new opportunities, the
-            ways of working that once enabled progress can start creating
-            friction. What is manageable today can become a constraint at the
-            next stage of growth. Addressing it early keeps the organisation
-            ready for what comes next.
-          </p>
-
+          <p className="st">Our Mission</p>
           <div className="ms-panel">
-            <h2 className="ms-eyebrow">
-              <span className="ms-eyebrow-ico">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="9" />
-                  <path d="M12 7v5l3 2" />
-                </svg>
-              </span>
-              <span className="font-bolder! text-2xl">Our Mission</span>
-            </h2>
             <p className="ab-intro">
               Every organisation is shaped by the way its people, processes, technology, business model, operating model, and strategy work together. These elements evolve over time to help the business succeed—but what enables growth at one stage can become a constraint at the next.
             </p>
@@ -118,26 +101,19 @@ export default function AboutPage() {
                   &mdash; it should be more human.&#8221;
                 </p>
                 <p className="fn-bio">
-                  I believe that technology is at its best when it helps
-                  people see further, think deeper, and create more than they
-                  could alone. Through Lantern, I explore the space where
-                  human ingenuity meets artificial intelligence, where
-                  automation removes friction and people rediscover purpose.
-                  Like a lantern carried through unfamiliar terrain, my work is
-                  guided by a simple conviction: that the future should not
-                  merely be more intelligent &mdash; it should be more human.
+                  I believe that Technology is at its best when it helps people see further,
+                  think deeper, and create more than they could alone. Lantern
+                  explores the space where human ingenuity meets artificial
+                  intelligence, where automation removes friction and people
+                  rediscover purpose. Like a lantern carried through unfamiliar
+                  terrain, our work is guided by a simple conviction: that the
+                  future should not merely be more intelligent &mdash; it should
+                  be more human.
                 </p>
               </div>
             </div>
             <p className="fn-note">
-              Technology is at its best when it helps people see further,
-              think deeper, and create more than they could alone. Lantern
-              explores the space where human ingenuity meets artificial
-              intelligence, where automation removes friction and people
-              rediscover purpose. Like a lantern carried through unfamiliar
-              terrain, our work is guided by a simple conviction: that the
-              future should not merely be more intelligent &mdash; it should
-              be more human.
+
             </p>
 
             <div className="fn-block">
@@ -157,27 +133,19 @@ export default function AboutPage() {
                   every connection considered.&#8221;
                 </p>
                 <p className="fn-bio">
-                  I believe that great technology is built quietly,
-                  through clarity of thought, discipline of design, and depth of
-                  understanding. At Lantern, I shape the architecture that
-                  turns ambition into outcome, ensuring every system we build
-                  stands the test of scale, scrutiny, and time. My conviction
-                  is simple: that lasting transformation is engineered with the
-                  same care as a finely crafted instrument &mdash; every part
-                  purposeful, every connection considered, every detail
-                  deliberate.
+                  I believe that Great technology is built quietly, through clarity of thought,
+                  discipline of design, and depth of understanding. At Lantern,
+                  we shape the architecture that turns ambition into outcome,
+                  ensuring every system we build stands the test of scale,
+                  scrutiny, and time. My conviction is simple: Lasting
+                  transformation is engineered with the same care as a finely
+                  crafted instrument &mdash; every part purposeful, every
+                  connection considered, every detail deliberate.
                 </p>
               </div>
             </div>
             <p className="fn-note">
-              Great technology is built quietly, through clarity of thought,
-              discipline of design, and depth of understanding. At Lantern,
-              we shape the architecture that turns ambition into outcome,
-              ensuring every system we build stands the test of scale,
-              scrutiny, and time. My conviction is simple: Lasting
-              transformation is engineered with the same care as a finely
-              crafted instrument &mdash; every part purposeful, every
-              connection considered, every detail deliberate.
+
             </p>
           </div>
         </div>

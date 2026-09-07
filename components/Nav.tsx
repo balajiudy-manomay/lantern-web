@@ -3,7 +3,42 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import LanternLogoIcon from "./icons/lantern-logo-icon";
+import LanternLogoFull from "./icons/lantern-logo-full";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "./ui/navigation-menu";
+
+function DropdownItem({
+  href,
+  title,
+  description,
+  onClick,
+}: {
+  href: string;
+  title: string;
+  description: string;
+  onClick: (e: React.MouseEvent<HTMLAnchorElement>) => void;
+}) {
+  return (
+    <li>
+      <NavigationMenuLink
+        render={
+          <Link href={href} onClick={onClick}>
+            <div className="flex flex-col gap-1">
+              <div className="font-bold leading-none text-[var(--hd)]">{title}</div>
+              <div className="leading-snug text-[var(--mu)]">{description}</div>
+            </div>
+          </Link>
+        }
+      />
+    </li>
+  );
+}
 
 export default function Nav({ toggleTheme }: { toggleTheme: () => void }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -32,32 +67,62 @@ export default function Nav({ toggleTheme }: { toggleTheme: () => void }) {
       <nav className="nav">
         <div className="nav-inner">
           <Link href="/" onClick={(e) => handleLinkClick(e, "/")} className="nav-logo">
-            <LanternLogoIcon className="nav-logo-icon" />
+            <LanternLogoFull className="nav-logo-icon" height={28} />
           </Link>
-          <ul className="nav-links">
-            <li><Link href="/complexity" onClick={(e) => handleLinkClick(e, "/complexity")} className={pathname === "/complexity" ? "active" : ""}>Landscape</Link></li>
-            <li><Link href="/lantern" onClick={(e) => handleLinkClick(e, "/lantern")} className={pathname === "/lantern" ? "active" : ""}>Lantern</Link></li>
-            <li className="nav-drop">
-              <Link href="/services" onClick={(e) => handleLinkClick(e, "/services")} className={servicesActive ? "active" : ""}>Services</Link>
-              <div className="nav-drop-panel">
-                <div className="nav-drop-panel-inner">
-                  <Link href="/services" onClick={(e) => handleLinkClick(e, "/services")}>Services</Link>
-                  <Link href="/pulse" onClick={(e) => handleLinkClick(e, "/pulse")}>Market Pulse</Link>
-                </div>
-              </div>
-            </li>
-            <li><Link href="/industries" onClick={(e) => handleLinkClick(e, "/industries")} className={pathname === "/industries" ? "active" : ""}>Industries</Link></li>
-            <li className="nav-drop">
-              <Link href="/about" onClick={(e) => handleLinkClick(e, "/about")} className={aboutActive ? "active" : ""}>About</Link>
-              <div className="nav-drop-panel">
-                <div className="nav-drop-panel-inner">
-                  <Link href="/about" onClick={(e) => handleLinkClick(e, "/about")}>About Lantern</Link>
-                  <Link href="/faqs" onClick={(e) => handleLinkClick(e, "/faqs")}>FAQs</Link>
-                </div>
-              </div>
-            </li>
-            <li><Link href="/contact" onClick={(e) => handleLinkClick(e, "/contact")} className={pathname === "/contact" ? "active" : ""}>Connect</Link></li>
-          </ul>
+          <NavigationMenu className="max-w-none">
+            <NavigationMenuList className="nav-links">
+              <NavigationMenuItem>
+                <Link href="/complexity" onClick={(e) => handleLinkClick(e, "/complexity")} className={pathname === "/complexity" ? "active" : ""}>Landscape</Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Link href="/lantern" onClick={(e) => handleLinkClick(e, "/lantern")} className={pathname === "/lantern" ? "active" : ""}>Lantern</Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger className={servicesActive ? "text-[var(--gold)]" : undefined}>Services</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid w-72 gap-1">
+                    <DropdownItem
+                      href="/services"
+                      title="Services"
+                      description="AI, automation and transformation services built around your business."
+                      onClick={(e) => handleLinkClick(e, "/services")}
+                    />
+                    <DropdownItem
+                      href="/pulse"
+                      title="Market Pulse"
+                      description="Signals on AI adoption, governance and automation shaping growth."
+                      onClick={(e) => handleLinkClick(e, "/pulse")}
+                    />
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Link href="/industries" onClick={(e) => handleLinkClick(e, "/industries")} className={pathname === "/industries" ? "active" : ""}>Industries</Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger className={aboutActive ? "text-[var(--gold)]" : undefined}>About</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid w-72 gap-1">
+                    <DropdownItem
+                      href="/about"
+                      title="About Lantern"
+                      description="Our mission, founders and the five pillars behind our approach."
+                      onClick={(e) => handleLinkClick(e, "/about")}
+                    />
+                    <DropdownItem
+                      href="/faqs"
+                      title="FAQs"
+                      description="Answers to common questions about working with Lantern."
+                      onClick={(e) => handleLinkClick(e, "/faqs")}
+                    />
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Link href="/contact" onClick={(e) => handleLinkClick(e, "/contact")} className={pathname === "/contact" ? "active" : ""}>Connect</Link>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
           <div className="nav-actions">
             <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme" title="Toggle theme">
               <svg className="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">

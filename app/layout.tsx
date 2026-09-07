@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
-import { Montserrat, Inter, Caveat, Kalam } from "next/font/google";
+import { Montserrat, Inter, Caveat, Kalam, Geist } from "next/font/google";
 import ClientLayout from "../components/ClientLayout";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const montserrat = Montserrat({
   variable: "--sf",
@@ -125,7 +128,7 @@ export default function RootLayout({
     <html
       lang="en"
       data-theme="light"
-      className={`${montserrat.variable} ${inter.variable} ${caveat.variable} ${kalam.variable} h-full antialiased`}
+      className={cn("h-full", "antialiased", montserrat.variable, inter.variable, caveat.variable, kalam.variable, "font-sans", geist.variable)}
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >

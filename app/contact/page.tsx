@@ -68,7 +68,7 @@ export default function ContactPage() {
                 <polyline points="22,6 12,13 2,6" />
               </svg>
             </div>
-            <h2>For leaders who want to talk, not fill out a funnel.</h2>
+            <h2 className="font-bold!">For leaders who want to talk, not fill out a funnel.</h2>
             <p>Whether you have a specific challenge or you are still shaping the question, we are happy to listen. Our conversations are confidential, candid, and free of sales pressure.</p>
 
             <div className="ct-list">
