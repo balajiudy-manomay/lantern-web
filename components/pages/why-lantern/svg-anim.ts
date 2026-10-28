@@ -26,42 +26,91 @@ export function prefersReducedMotion() {
 }
 
 /**
- * Plays a looping timeline of length `L` seconds, only while `root` is on screen,
- * holding while the pointer is over it. With reduced motion it shows the frame at `still`.
+ * Plays a timeline from 0 to `end` seconds as the page scrolls.
+ * Where `pin` fits on screen (allowing `slack` px to tuck under the header) it stays stuck while the
+ * visitor scrolls through `track`, which is given `scrollVh` viewport heights of extra length.
+ * Otherwise the timeline plays as `follow` (default `pin`) moves up through the viewport. With reduced motion it shows
+ * the frame at `still`.
  */
-export function createRunner(root: Element, L: number, render: (t: number) => void, still: number) {
+export function createScrollScrub(opts: {
+  track: HTMLElement;
+  pin: HTMLElement;
+  end: number;
+  still: number;
+  render: (t: number) => void;
+  follow?: Element;
+  scrollVh?: number;
+  slack?: () => number;
+}) {
+  const { track, pin, end, still, render } = opts;
+  const scrollVh = opts.scrollVh ?? 2.4;
   const reduce = prefersReducedMotion();
-  let t = 0, last = 0, visible = false, held = false, raf = 0, alive = true;
-  function frame(now: number) {
-    raf = 0;
-    if (!visible || !alive) return;
-    if (!held && !reduce) t = (t + Math.min(.05, (now - (last || now)) / 1000)) % L;
-    last = now; render(t);
-    if (!reduce) raf = requestAnimationFrame(frame);
+  let pinned = false, stickyTop = 0, scrollLen = 0, raf = 0;
+
+  function layout() {
+    const vh = window.innerHeight;
+    const navH = document.getElementById("nav")?.offsetHeight ?? 72;
+    // Measure in the pinned layout (which may be more compact), with transitions paused
+    track.classList.add("pinned", "measuring");
+    const pinH = pin.offsetHeight, room = vh - navH;
+    track.classList.remove("measuring");
+    pinned = !reduce && pinH - (opts.slack?.() ?? 0) <= room - 16;
+    if (pinned) {
+      stickyTop = Math.min(navH + Math.max(16, (room - pinH) / 2), vh - pinH - 16);
+      scrollLen = Math.round(vh * scrollVh);
+      pin.style.top = stickyTop + "px";
+      track.style.height = pinH + scrollLen + "px";
+    } else {
+      pin.style.top = "";
+      track.style.height = "";
+    }
+    track.classList.toggle("pinned", pinned);
   }
-  function wake() { if (!raf && alive) { last = 0; raf = requestAnimationFrame(frame); } }
-  let io: IntersectionObserver | null = null;
-  if ("IntersectionObserver" in window) {
-    io = new IntersectionObserver((en) => en.forEach((e) => { visible = e.isIntersecting; if (visible) wake(); }), { threshold: 0.2 });
-    io.observe(root);
-  } else {
-    visible = true;
+  // Not pinned: start as `follow` comes up into view, finish once its middle reaches the top third
+  function flowRange() {
+    const vh = window.innerHeight, r = (opts.follow ?? pin).getBoundingClientRect();
+    return { top: r.top, start: vh * .85, end: vh * .3 - r.height * .5 };
   }
-  const onEnter = () => { held = true; };
-  const onLeave = () => { held = false; };
-  root.addEventListener("mouseenter", onEnter);
-  root.addEventListener("mouseleave", onLeave);
-  if (reduce) t = still;
-  render(t);
+  function progress() {
+    if (pinned) return cl01((stickyTop - track.getBoundingClientRect().top) / scrollLen);
+    const f = flowRange();
+    return cl01((f.start - f.top) / (f.start - f.end));
+  }
+  function update() { raf = 0; render(reduce ? still : progress() * end); }
+  function onScroll() { if (!raf) raf = requestAnimationFrame(update); }
+  function onResize() { layout(); update(); }
+
+  layout();
+  update();
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onResize);
+  // Re-measure when the block's width changes (fonts loading, the window or pane resizing), but not for the
+  // small height changes as copy swaps while scrolling, which would make the pinned block jump
+  let lastW = pin.offsetWidth;
+  const ro = "ResizeObserver" in window ? new ResizeObserver(() => {
+    if (pin.offsetWidth === lastW && pinned) return;
+    lastW = pin.offsetWidth;
+    onResize();
+  }) : null;
+  ro?.observe(pin);
+
   return {
     reduce,
-    seek(s: number) { t = s; render(t); wake(); },
+    /** Scrolls to the point where the timeline reaches `t` (or renders it directly with reduced motion). */
+    seek(t: number) {
+      if (reduce) { render(t); return; }
+      let y: number;
+      if (pinned) y = window.scrollY + track.getBoundingClientRect().top - stickyTop + (t / end) * scrollLen;
+      else { const f = flowRange(); y = window.scrollY + f.top - (f.start - (t / end) * (f.start - f.end)); }
+      window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+    },
     destroy() {
-      alive = false;
       if (raf) cancelAnimationFrame(raf);
-      io?.disconnect();
-      root.removeEventListener("mouseenter", onEnter);
-      root.removeEventListener("mouseleave", onLeave);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+      ro?.disconnect();
+      track.style.height = "";
+      pin.style.top = "";
     },
   };
 }

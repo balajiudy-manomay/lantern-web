@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { createRunner, ez, lerp, mixc, sel, sg, stx } from "./svg-anim";
+import { createScrollScrub, ez, lerp, mixc, sel, sg, stx } from "./svg-anim";
 
 const STAGES = [
   { v: "Understand", s: "Where you are coming from", lab: "Listen before we propose", h: "We start with you, not a solution.", p: "Instead of jumping to an answer the moment we hear a problem, we first understand where you are coming from: your organisation’s purpose, the principles it runs on, your aspirations, and why this challenge matters now." },
@@ -11,8 +11,11 @@ const STAGES = [
   { v: "Realise", s: "Value, measured", lab: "Value, measured and improved", h: "We stay until the value is real.", p: "We define the value we expect, and how it will be measured, from the very start, which also guides course correction along the way. We stay through measurement, confirm the value is realised and use what we learn to keep improving." },
 ];
 
-// Seconds into the beam timeline at which each stage begins, and the loop length
-const STAGE_AT = [0, 4.6, 9.2, 13.8, 18.4], BM_L = 24.5;
+// Seconds into the beam timeline at which each stage begins. Scrolling plays it from 0 to BM_END
+// (the value target has just been raised), and STILL is the frame shown with reduced motion.
+const STAGE_AT = [0, 4.6, 9.2, 13.8, 18.4], BM_END = 22.8, STILL = 21;
+// How far to scroll, in viewport heights, to play the whole timeline while the diagram is pinned
+const SCROLL_VH = 2.6;
 
 // Area icons for the beam, drawn on a 40x40 grid
 const ICONS: Record<string, string> = {
@@ -115,8 +118,12 @@ function buildBeam(svg: SVGSVGElement, onStage: (s: number) => void) {
 /**
  * Our approach: five stages on a timeline, with a lantern beam that opens wide, narrows onto
  * the real issue, then spreads across the business while value rises to the agreed target.
+ * The timeline follows the page's scroll position: where the stages and diagram fit on screen they
+ * stay pinned while the visitor scrolls through them; otherwise it plays as the diagram scrolls past.
  */
 export default function ApproachBeam() {
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const pinRef = useRef<HTMLDivElement | null>(null);
   const flowRef = useRef<HTMLUListElement | null>(null);
   const stageRef = useRef<HTMLDivElement | null>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
@@ -126,8 +133,8 @@ export default function ApproachBeam() {
   const pRef = useRef<HTMLParagraphElement | null>(null);
 
   useEffect(() => {
-    const flow = flowRef.current, stage = stageRef.current, svg = svgRef.current, copy = copyRef.current;
-    if (!flow || !stage || !svg || !copy) return;
+    const track = trackRef.current, pin = pinRef.current, flow = flowRef.current, stage = stageRef.current, svg = svgRef.current, copy = copyRef.current;
+    if (!track || !pin || !flow || !stage || !svg || !copy) return;
     const items = Array.from(flow.children) as HTMLLIElement[];
     const btns = items.map((li) => li.querySelector<HTMLButtonElement>(".fl-btn")!);
     let current = -1;
@@ -149,15 +156,25 @@ export default function ApproachBeam() {
       copy!.classList.remove("swap"); void copy!.offsetWidth; copy!.classList.add("swap");
     }
 
-    const render = buildBeam(svg, selectFlow);
-    const run = createRunner(stage, BM_L, render, 21);
+    const scrub = createScrollScrub({
+      track, pin, follow: stage, end: BM_END, still: STILL, scrollVh: SCROLL_VH,
+      render: buildBeam(svg, selectFlow),
+      // The stage row may tuck half under the header while pinned
+      slack: () => flow.offsetHeight / 2,
+    });
+
+    // Clicking a stage scrolls to the point where it begins (or jumps there with reduced motion)
+    function goTo(n: number) {
+      scrub.seek(scrub.reduce && n === 4 ? STILL : STAGE_AT[n] + .01 + (scrub.reduce ? 3 : 0));
+    }
+
     const offs = btns.map((b, i) => {
-      const onClick = () => run.seek(STAGE_AT[i] + .01 + (run.reduce ? 3 : 0));
+      const onClick = () => goTo(i);
       const onKey = (e: KeyboardEvent) => {
         let n: number | null = null;
         if (e.key === "ArrowRight") n = Math.min(btns.length - 1, i + 1);
         if (e.key === "ArrowLeft") n = Math.max(0, i - 1);
-        if (n !== null) { e.preventDefault(); run.seek(STAGE_AT[n] + .01); btns[n].focus(); }
+        if (n !== null) { e.preventDefault(); goTo(n); btns[n].focus({ preventScroll: true }); }
       };
       b.addEventListener("click", onClick);
       b.addEventListener("keydown", onKey);
@@ -165,39 +182,41 @@ export default function ApproachBeam() {
     });
 
     return () => {
-      run.destroy();
+      scrub.destroy();
       offs.forEach((off) => off());
       svg.replaceChildren();
     };
   }, []);
 
   return (
-    <>
-      <ul className="flow" ref={flowRef}>
-        {STAGES.map((st, i) => (
-          <li key={st.v}>
-            <button className="fl-btn" type="button" aria-expanded={i === 0}>
-              <span className="fl-v">{st.v}</span>
-              <span className="fl-s">{st.s}</span>
-            </button>
-          </li>
-        ))}
-      </ul>
-      <div className="beam-stage" ref={stageRef}>
-        <div className="beam-copy" aria-live="polite" ref={copyRef}>
-          <span className="lab" ref={labRef}></span>
-          <h3 ref={hRef}></h3>
-          <p ref={pRef}></p>
-        </div>
-        <div className="beam-fig">
-          <svg
-            ref={svgRef}
-            viewBox="0 0 900 600"
-            role="img"
-            aria-label="A lantern lights seven areas of a business: strategy, people, processes, technology, data, customers and operating model. The light opens wide, narrows onto the real issue, then spreads across every area while value rises to the agreed target."
-          ></svg>
+    <div className="beam-track" ref={trackRef}>
+      <div className="beam-pin" ref={pinRef}>
+        <ul className="flow" ref={flowRef}>
+          {STAGES.map((st, i) => (
+            <li key={st.v}>
+              <button className="fl-btn" type="button" aria-expanded={i === 0}>
+                <span className="fl-v">{st.v}</span>
+                <span className="fl-s">{st.s}</span>
+              </button>
+            </li>
+          ))}
+        </ul>
+        <div className="beam-stage" ref={stageRef}>
+          <div className="beam-copy" aria-live="polite" ref={copyRef}>
+            <span className="lab" ref={labRef}></span>
+            <h3 ref={hRef}></h3>
+            <p ref={pRef}></p>
+          </div>
+          <div className="beam-fig">
+            <svg
+              ref={svgRef}
+              viewBox="0 0 900 600"
+              role="img"
+              aria-label="A lantern lights seven areas of a business: strategy, people, processes, technology, data, customers and operating model. The light opens wide, narrows onto the real issue, then spreads across every area while value rises to the agreed target."
+            ></svg>
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

@@ -83,3 +83,11 @@
 .v4 .right-sol { background: var(--tint); border-top: 1px solid var(--line); }
 .v4 .rs-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); align-items: start; }
 @media (max-width: 899px) { .v4 .rs-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* Scroll-driven animations: the diagram stays pinned while the page scrolls through its track */
+.v4 :is(.beam-track, .bal-track) { position: relative; }
+.v4 .beam-track.pinned .beam-pin, .v4 .bal-track.pinned .hw { position: sticky; }
+/* While pinned, only the current area's description shows, so the list fits on screen */
+.v4 .bal-track.pinned .hw-row p { max-height: 0; margin-top: 0; opacity: 0; overflow: hidden; transition: max-height .4s ease, margin-top .4s ease, opacity .3s ease; }
+.v4 .bal-track.pinned .hw-row.open p { max-height: 8em; margin-top: 4px; opacity: 1; }
+.v4 .measuring, .v4 .measuring * { transition: none !important; }
