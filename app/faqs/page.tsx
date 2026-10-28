@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import FaqAccordion from "../../components/pages/faqs/FaqAccordion";
+import Link from "next/link";
+import FaqAccordion, { type Faq } from "../../components/pages/faqs/FaqAccordion";
+import "./faqs.css";
 
 export const metadata: Metadata = {
   title: "FAQs | Lantern",
@@ -25,7 +27,7 @@ export const metadata: Metadata = {
   },
 };
 
-// #1 from the client's FAQ sheet is intentionally left out of faqItems —
+// #1 from the client's FAQ sheet is intentionally left out of FAQS —
 // noted there as "Let it be a placeholder for now. And hide." Keeping it
 // here, unrendered, so it's easy to bring in once it's ready to publish.
 // const hiddenFaqItem = {
@@ -33,37 +35,76 @@ export const metadata: Metadata = {
 //   a: "AI tools can provide answers. Lantern works to understand the problem behind the question. We look across the business to identify root causes, interdependencies and the highest-impact solution — not just the immediate requirement. We then bring the right combination of human expertise, AI and automation and stay involved through execution and value realisation.",
 // };
 
-const faqItems = [
+// Questions from the FAQs view of Lantern_Website_V4_Final.html
+const FAQS: Faq[] = [
   {
-    q: "My company is not a startup or a brand new company. Would Lantern help us resolve the business challenges?",
-    a: "Absolutely. Lantern works with founder-led companies at different stages of their journey — not just newly established businesses. If your company is ambitious about growth and looking to move into its next stage, we would be glad to help you get there.",
+    cat: "about",
+    q: "What does Lantern do?",
+    a: "Lantern is a business and technology consulting firm. We provide consulting, technical solutions such as AI and automation, and enterprise transformation services across sectors. We work at the intersection of human judgement, AI and intelligent automation.",
   },
   {
-    q: "Does Lantern only work with founder-led companies?",
-    a: "Founder-led companies are our primary focus, but they are not our only focus. We work with growth-oriented businesses that are looking to overcome the constraints in their current ways of working and move towards their next stage of growth.",
+    cat: "about",
+    q: "Who does Lantern work with?",
+    a: "Businesses that have built something from the ground up and are ambitious about what comes next. Many are founder-led and growing quickly while their ways of working are still evolving.",
   },
   {
-    q: "How does Lantern approach a business problem?",
-    a: "We start with the business problem, not a predefined service. We look beyond the immediate challenge to understand its root causes, the interdependencies across people, processes, technology and functions, and the broader business impact. We then design, implement and measure the solution that best fits the business and its stage of growth.",
+    cat: "about",
+    q: "Do you work only in certain industries?",
+    a: "No. Our focus isn’t limited to a specific industry. We are industry, technology and function agnostic, so we start with the business need rather than a predefined answer. The Industries page shows some of the sectors we work with.",
   },
   {
-    q: "Do I need to know what solution I need before approaching Lantern?",
-    a: "Not at all. Bring us the business challenge — not necessarily the solution. We work with you to understand what is really holding the business back, challenge the assumptions behind the requirement and identify the approach that can create the greatest business value.",
+    cat: "about",
+    q: "Which functions do you work on?",
+    a: "All of them, from core functions such as operations, sales and marketing and customer experience, to business-support functions such as strategy, finance, HR, technology and data. The challenges that limit growth rarely sit neatly in one function, so our work often crosses several.",
   },
   {
-    q: "Can Lantern work with our existing technology and systems, or do we need to replace them?",
-    a: "We don't believe in replacing technology for the sake of replacing it. We assess your existing systems, capabilities and constraints first, and work with what already makes sense. Where change is needed, we recommend it based on the business value it can create — not on a preference for a particular technology or platform.",
+    cat: "working",
+    q: "Do you only advise, or do you also implement?",
+    a: "Both. We don’t stop at the recommendation. We work alongside you to design, implement and measure the solution, so strategy turns into execution and execution into measurable business value. Where it makes sense, we can also run operations for you through our managed operations service.",
+  },
+  {
+    cat: "working",
+    q: "We already know what we want built. Can you just build it?",
+    a: "We can build it. We usually begin by understanding the challenge behind the request, because the right solution isn’t always the one you came looking for. Sometimes that conversation confirms the original plan. Sometimes it points to a bigger opportunity.",
+  },
+  {
+    cat: "working",
+    q: "How does an engagement work?",
+    a: "Every engagement follows the same path: understand the business, diagnose the root cause, design the right combination of human judgement, AI and automation, implement it, and realise measurable value. The details change with the challenge. The way of working does not.",
+  },
+  {
+    cat: "working",
+    q: "How do you make sure the investment pays off?",
+    a: "Work is complete only when it creates the outcomes that move your business forward. We align initiatives with business priorities, set clear outcomes, measure results, and support adoption through change management so the changes last.",
+  },
+  {
+    cat: "working",
+    q: "How do we get started?",
+    a: "Visit the Cocreate page and tell us about the challenge you are facing. We will talk it through with you and help you understand what is really behind it.", link: { href: "/contact", label: "Go to the Cocreate page" },
+  },
+  {
+    cat: "approach",
+    q: "Is AI the answer to every problem?",
+    a: "No. We help you decide what should be automated, where AI can create the greatest value and where human judgement matters most. The right answer is usually a combination, in the right proportions.",
+  },
+  {
+    cat: "approach",
+    q: "How is Lantern different from a typical consulting firm?",
+    a: "Many firms are known for the services they sell. We want to be known for how we solve problems: starting with the business challenge, finding the root cause, designing for your context and stage of growth, and staying through implementation until the result is real.", link: { href: "/why-lantern", label: "Read about our approach" },
   },
 ];
 
 export default function FaqsPage() {
   return (
-    <section id="faqs" className="reveal justify-center">
-      <div className="si" style={{ maxWidth: '780px' }}>
-        <h1 className="sl">FAQs</h1>
-        <p className="st">Questions we hear most often.</p>
-        <FaqAccordion items={faqItems} />
-      </div>
-    </section>
+    <div className="v4">
+      <FaqAccordion items={FAQS}>
+        <aside className="faq-aside">
+          <span className="lab" style={{ color: "var(--gold-light)" }}>Still curious?</span>
+          <h2>Ask us directly.</h2>
+          <p>Tell us what you are working through and we will take it from there.</p>
+          <div><Link className="btn btn-gold" href="/contact">Connect with us</Link></div>
+        </aside>
+      </FaqAccordion>
+    </div>
   );
 }

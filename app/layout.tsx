@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { Montserrat, Inter, Caveat, Kalam, Geist } from "next/font/google";
+import { Montserrat, Inter, Caveat, Kalam, Geist, Cormorant_Garamond, Albert_Sans } from "next/font/google";
 import ClientLayout from "../components/ClientLayout";
 import "./globals.css";
+import "./v4.css";
 import { cn } from "@/lib/utils";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
@@ -24,6 +25,20 @@ const caveat = Caveat({
 const kalam = Kalam({
   variable: "--marker",
   weight: ["400", "700"],
+  subsets: ["latin"],
+});
+
+// Display and body faces for the home page (see app/home.css)
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
+  weight: ["500", "600", "700"],
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+});
+
+const albertSans = Albert_Sans({
+  variable: "--font-albert",
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
 });
 
@@ -128,10 +143,18 @@ export default function RootLayout({
     <html
       lang="en"
       data-theme="light"
-      className={cn("h-full", "antialiased", montserrat.variable, inter.variable, caveat.variable, kalam.variable, "font-sans", geist.variable)}
+      className={cn("h-full", "antialiased", montserrat.variable, inter.variable, caveat.variable, kalam.variable, cormorant.variable, albertSans.variable, "font-sans", geist.variable)}
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
+      <head>
+        {/* Apply the saved (or system) theme before first paint so there is no flash */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("lantern-theme")||localStorage.getItem("lanternTheme");if(!t)t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}})();`,
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <ClientLayout>{children}</ClientLayout>
       </body>

@@ -1,213 +1,103 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronDown, Menu, X } from "lucide-react";
-import LanternLogoFull from "./icons/lantern-logo-full";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "./ui/navigation-menu";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "./ui/drawer";
+import brandLight from "../public/images/brand-mark-light.png";
+import brandDark from "../public/images/brand-mark-dark.png";
+import "./nav.css";
 
-function DropdownItem({
-  href,
-  title,
-  description,
-  onClick,
-}: {
-  href: string;
-  title: string;
-  description: string;
-  onClick: (e: React.MouseEvent<HTMLAnchorElement>) => void;
-}) {
-  return (
-    <li>
-      <NavigationMenuLink
-        render={
-          <Link href={href} onClick={onClick}>
-            <div className="flex flex-col gap-1">
-              <div className="font-bold leading-none text-[var(--hd)]">{title}</div>
-              <div className="leading-snug text-[var(--mu)]">{description}</div>
-            </div>
-          </Link>
-        }
-      />
-    </li>
-  );
-}
+const LINKS = [
+  { href: "/", label: "Home" },
+  { href: "/why-lantern", label: "Why Lantern" },
+  { href: "/services", label: "Services" },
+  { href: "/industries", label: "Industries" },
+  { href: "/pulse", label: "Market Pulse" },
+  { href: "/about", label: "About" },
+  { href: "/faqs", label: "FAQs" },
+];
 
-function MobileNavGroup({
-  label,
-  defaultOpen,
-  children,
-}: {
-  label: string;
-  defaultOpen?: boolean;
-  children: React.ReactNode;
-}) {
-  const [open, setOpen] = useState(!!defaultOpen);
-  return (
-    <div className="mm-accordion">
-      <button
-        type="button"
-        className="mm-accordion-trigger"
-        onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
-      >
-        <span>{label}</span>
-        <ChevronDown size={18} aria-hidden="true" className={`mm-accordion-chevron${open ? " open" : ""}`} />
-      </button>
-      <div className={`mm-accordion-panel${open ? " open" : ""}`}>
-        <div className="mm-accordion-panel-inner">{children}</div>
-      </div>
-    </div>
-  );
-}
+export const THEME_KEY = "lantern-theme";
 
-export default function Nav({ toggleTheme }: { toggleTheme: () => void }) {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+export default function Nav() {
   const pathname = usePathname();
+  const progRef = useRef<HTMLElement | null>(null);
+  const [dark, setDark] = useState(false);
 
-  const toggleMob = () => setMobileMenuOpen(!mobileMenuOpen);
-
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
-    if (pathname === path) {
-      e.preventDefault();
+  // Scroll progress along the bottom edge of the header
+  useEffect(() => {
+    function updateProgress() {
+      const d = document.documentElement;
+      const max = Math.max(1, d.scrollHeight - window.innerHeight);
+      const p = Math.min(1, Math.max(0, (window.pageYOffset || d.scrollTop) / max));
+      if (progRef.current) progRef.current.style.transform = "scaleX(" + p.toFixed(4) + ")";
     }
-  };
+    updateProgress();
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    window.addEventListener("resize", updateProgress);
+    return () => {
+      window.removeEventListener("scroll", updateProgress);
+      window.removeEventListener("resize", updateProgress);
+    };
+  }, [pathname]);
 
-  const handleMobileLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
-    if (pathname === path) {
-      e.preventDefault();
+  // The theme is set before paint by the script in app/layout.tsx; follow the system until the visitor picks one
+  useEffect(() => {
+    const root = document.documentElement;
+    setDark(root.getAttribute("data-theme") === "dark");
+    let mq: MediaQueryList | null = null;
+    function onSystem(e: MediaQueryListEvent) {
+      let saved = null;
+      try { saved = localStorage.getItem(THEME_KEY); } catch {}
+      if (!saved) { root.setAttribute("data-theme", e.matches ? "dark" : "light"); setDark(e.matches); }
     }
-    toggleMob();
-  };
+    try { mq = matchMedia("(prefers-color-scheme: dark)"); mq.addEventListener("change", onSystem); } catch {}
+    return () => mq?.removeEventListener("change", onSystem);
+  }, []);
 
-  const servicesActive = pathname === "/services" || pathname === "/pulse";
-  const aboutActive = pathname === "/about" || pathname === "/faqs";
+  function toggleTheme() {
+    const root = document.documentElement;
+    const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    root.classList.add("theming");
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem(THEME_KEY, next); } catch {}
+    setTimeout(() => root.classList.remove("theming"), 450);
+    setDark(next === "dark");
+  }
+
+  const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/"));
 
   return (
-    <>
-      <nav className="nav">
-        <div className="nav-inner">
-          <Link href="/" onClick={(e) => handleLinkClick(e, "/")} className="nav-logo" aria-label="Lantern home">
-            <LanternLogoFull className="nav-logo-icon" height={28} />
-          </Link>
-          <NavigationMenu className="max-w-none">
-            <NavigationMenuList className="nav-links">
-              <NavigationMenuItem>
-                <Link href="/complexity" onClick={(e) => handleLinkClick(e, "/complexity")} className={pathname === "/complexity" ? "active" : ""}>Landscape</Link>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <Link href="/lantern" onClick={(e) => handleLinkClick(e, "/lantern")} className={pathname === "/lantern" ? "active" : ""}>Lantern</Link>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className={servicesActive ? "text-[var(--gold)]" : undefined}>Services</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-72 gap-1">
-                    <DropdownItem
-                      href="/services"
-                      title="Services"
-                      description="AI, automation and transformation services built around your business."
-                      onClick={(e) => handleLinkClick(e, "/services")}
-                    />
-                    <DropdownItem
-                      href="/pulse"
-                      title="Market Pulse"
-                      description="Signals on AI adoption, governance and automation shaping growth."
-                      onClick={(e) => handleLinkClick(e, "/pulse")}
-                    />
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <Link href="/industries" onClick={(e) => handleLinkClick(e, "/industries")} className={pathname === "/industries" ? "active" : ""}>Industries</Link>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className={aboutActive ? "text-[var(--gold)]" : undefined}>About</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-72 gap-1">
-                    <DropdownItem
-                      href="/about"
-                      title="About Lantern"
-                      description="Our mission, founders and the five pillars behind our approach."
-                      onClick={(e) => handleLinkClick(e, "/about")}
-                    />
-                    <DropdownItem
-                      href="/faqs"
-                      title="FAQs"
-                      description="Answers to common questions about working with Lantern."
-                      onClick={(e) => handleLinkClick(e, "/faqs")}
-                    />
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <Link href="/contact" onClick={(e) => handleLinkClick(e, "/contact")} className={pathname === "/contact" ? "active" : ""}>Connect</Link>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
-          <div className="nav-actions">
-            <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme" title="Toggle theme">
-              <svg className="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                <circle cx="12" cy="12" r="4" />
-                <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
-              </svg>
-              <svg className="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
-              </svg>
-            </button>
-            <Drawer open={mobileMenuOpen} onOpenChange={setMobileMenuOpen} swipeDirection="right">
-              <DrawerTrigger
-                render={
-                  <button className="hamburger" aria-label="Menu">
-                    <Menu size={22} aria-hidden="true" />
-                  </button>
-                }
-              />
-              <DrawerContent className="mm-drawer bg-[var(--card)] text-[var(--hd)]">
-                <DrawerHeader className="mm-drawer-head">
-                  <DrawerTitle className="mm-drawer-title">Menu</DrawerTitle>
-                  <DrawerClose
-                    render={
-                      <button className="mobile-close" aria-label="Close menu">
-                        <X size={20} aria-hidden="true" />
-                      </button>
-                    }
-                  />
-                </DrawerHeader>
-                <nav className="mm-links">
-                  <Link className="mm-row" href="/complexity" onClick={(e) => handleMobileLinkClick(e, "/complexity")}>Landscape</Link>
-                  <Link className="mm-row" href="/lantern" onClick={(e) => handleMobileLinkClick(e, "/lantern")}>Lantern</Link>
-                  <MobileNavGroup label="Services" defaultOpen={servicesActive}>
-                    <Link href="/services" onClick={(e) => handleMobileLinkClick(e, "/services")}>Services</Link>
-                    <Link href="/pulse" onClick={(e) => handleMobileLinkClick(e, "/pulse")}>Market Pulse</Link>
-                  </MobileNavGroup>
-                  <Link className="mm-row" href="/industries" onClick={(e) => handleMobileLinkClick(e, "/industries")}>Industries</Link>
-                  <MobileNavGroup label="About" defaultOpen={aboutActive}>
-                    <Link href="/about" onClick={(e) => handleMobileLinkClick(e, "/about")}>About Lantern</Link>
-                    <Link href="/faqs" onClick={(e) => handleMobileLinkClick(e, "/faqs")}>FAQs</Link>
-                  </MobileNavGroup>
-                  <Link className="mm-row" href="/contact" onClick={(e) => handleMobileLinkClick(e, "/contact")}>Connect</Link>
-                </nav>
-              </DrawerContent>
-            </Drawer>
-          </div>
-        </div>
-      </nav>
-    </>
+    <header className="nav v4-nav" id="nav">
+      <div className="nav-bar"><i ref={progRef}></i></div>
+      <div className="wrap nav-in">
+        <Link className="brand" href="/" aria-label="Lantern, home">
+          {/* Plain <img>, as in the HTML: the light and dark marks swap via CSS on data-theme */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="brand-mark light" src={brandLight.src} alt="Lantern" width={236} height={48} />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="brand-mark darkv" src={brandDark.src} alt="" aria-hidden="true" width={236} height={48} />
+        </Link>
+        <nav className="nav-links" aria-label="Primary">
+          {LINKS.map((l) => (
+            <Link key={l.href} href={l.href} className={isActive(l.href) ? "active" : undefined} aria-current={isActive(l.href) ? "page" : undefined}>
+              {l.label}
+            </Link>
+          ))}
+        </nav>
+        <button
+          className="theme-tg"
+          type="button"
+          onClick={toggleTheme}
+          aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
+          aria-pressed={dark}
+          title="Light or dark"
+        >
+          <svg className="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" /></svg>
+          <svg className="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></svg>
+        </button>
+        <Link className="btn btn-gold btn-sm" href="/contact">Cocreate</Link>
+      </div>
+    </header>
   );
 }

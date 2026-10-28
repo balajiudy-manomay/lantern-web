@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
-import FunctionsRail from "../../components/pages/industries/FunctionsRail";
+import Link from "next/link";
+import type { ReactNode } from "react";
+import WhereTheyMeet from "../../components/pages/industries/WhereTheyMeet";
+import SettleObserver from "../../components/SettleObserver";
+import SpotObserver from "../../components/SpotObserver";
+import "./industries.css";
 
 export const metadata: Metadata = {
   title: "Industries We Serve | Lantern",
@@ -38,66 +43,96 @@ export const metadata: Metadata = {
   },
 };
 
-const functions = ["Strategy", "Operations", "Finance", "HR", "Technology", "Data", "Sales & Marketing", "Customer Experience"];
+// Card text and icons from the Industries view of Lantern_Website_V4_Final.html
+const SECTORS: { name: string; d: string; often: string; icon: ReactNode }[] = [
+  { name: "Technology & AI", d: "IT services, software, AI and technology-led businesses.", often: "Teams that ship fast, and processes that struggle to keep up.", icon: <><rect x="10" y="10" width="20" height="20" rx="2" /><rect x="16" y="16" width="8" height="8" /><path d="M15 4v6M25 4v6M15 30v6M25 30v6M4 15h6M4 25h6M30 15h6M30 25h6" /></> },
+  { name: "Financial & Business Services", d: "Financial services, insurance and other businesses operating in highly regulated or complex environments.", often: "Rules to follow to the letter, and reporting that takes too long to produce.", icon: <><path d="M6 16 20 6l14 10Z" /><path d="M11 19v10M17 19v10M23 19v10M29 19v10M6 33h28" /></> },
+  { name: "Healthcare & Life Sciences", d: "Healthcare providers, services and businesses navigating complex operational and regulatory environments.", often: "Care and compliance pulling together, on systems that don’t talk to each other.", icon: <><circle cx="20" cy="20" r="14" /><path d="M20 12v16M12 20h16" /></> },
+  { name: "Professional Services", d: "Accounting, legal, advisory and other expertise-led businesses.", often: "Expertise held by a few people, and capacity that depends on them.", icon: <><rect x="6" y="13" width="28" height="19" rx="2" /><path d="M15 13V9h10v4M6 22h28" /></> },
+  { name: "Logistics & Operations", d: "Logistics, supply chain and businesses where operational efficiency is central to growth.", often: "Every handoff has a cost, and small delays add up along the chain.", icon: <><circle cx="8" cy="30" r="3.5" /><circle cx="32" cy="10" r="3.5" /><path d="M11.5 30H22c7 0-4-20 6.5-20" /></> },
+  { name: "Government Organisations", d: "Government entities managing operational complexity, regulatory requirements and evolving citizen expectations.", often: "Citizens expecting digital service, delivered on legacy processes and strict controls.", icon: <><path d="M8 25a12 12 0 0 1 24 0" /><path d="M6 25h28v6H6zM20 13V5" /><path d="M20 5h6" /></> },
+];
+
+const FUNCTIONS: { name: string; d: string; icon: ReactNode }[] = [
+  { name: "Strategy", d: "Business strategy, business model and operating model, shaped around where the company is headed.", icon: <><circle cx="20" cy="20" r="14" /><circle cx="20" cy="20" r="7" /><circle cx="20" cy="20" r="1.8" fill="currentColor" /></> },
+  { name: "Operations & Service Delivery", d: "Day-to-day operations and service delivery that run smoothly and scale, without the founder in every decision.", icon: <><circle cx="20" cy="20" r="5" /><circle cx="20" cy="20" r="11" strokeDasharray="4.2 3.1" strokeWidth="4" /><circle cx="20" cy="20" r="2" fill="currentColor" /></> },
+  { name: "Technology", d: "Systems, integrations and implementations chosen for the business need, never forced on it.", icon: <><path d="M14 12 6 20l8 8M26 12l8 8-8 8M22 8l-4 24" /></> },
+  { name: "Data, Analytics & AI", d: "Fragmented data turned into a trusted view, with analytics and AI that support real decisions.", icon: <><ellipse cx="20" cy="10" rx="12" ry="4" /><path d="M8 10v20a12 4 0 0 0 24 0V10" /><path d="M8 20a12 4 0 0 0 24 0" /></> },
+  { name: "Finance & Accounting", d: "Clear sight of where the money goes and where it leaks, with accounting and compliance reporting that runs itself.", icon: <><path d="M9 33V24M17 33V17M25 33V22M33 33V9" /><path d="M6 33h30" /></> },
+  { name: "Human Resources", d: "People, capacity and culture, and whether the gap is hiring, training or something else.", icon: <><circle cx="14" cy="14" r="5" /><path d="M5 32a9 9 0 0 1 18 0" /><circle cx="28" cy="16" r="4" /><path d="M26 25a8 8 0 0 1 10 7" /></> },
+  { name: "Customer Experience", d: "Every touchpoint and support channel examined for the root causes of churn, then redesigned to keep customers.", icon: <><path d="M20 33C6 23 6 11 14 11c3 0 5 2 6 4 1-2 3-4 6-4 8 0 8 12-6 22z" /></> },
+  { name: "Sales & Marketing", d: "Positioning, channels and segments, so a strong offering is seen by the right customers.", icon: <><path d="M8 16h6l16-8v24l-16-8H8z" /><path d="M14 24l2 8" /></> },
+];
+
+function CardIcon({ children }: { children: ReactNode }) {
+  return (
+    <div className="ico">
+      <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{children}</svg>
+    </div>
+  );
+}
 
 export default function IndustriesPage() {
   return (
-    <>
-      <section id="industries" className="reveal justify-center">
-        <div className="si">
-          <h1 className="sl">Industries</h1>
-          <p className="st">Built for ambitious businesses across sectors.</p>
-          <p className="ab-intro" style={{ marginBottom: '2.5rem' }}>
-            Our focus isn&#8217;t limited to a specific industry. We work with
-            businesses that have built something from the ground up and are
-            ambitious about what comes next.
-          </p>
-          <div className="in-grid">
-            <article className="in-card">
-              <div className="in-head"><span className="in-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><rect x="7" y="7" width="10" height="10" rx="1" /><path d="M9 3v2M13 3v2M9 19v2M13 19v2M3 9h2M3 13h2M19 9h2M19 13h2" /></svg></span><h2 className="in-nm">Technology &amp; AI</h2></div>
-              <p className="in-val">IT services, software, AI and technology-led businesses.</p>
-            </article>
-            <article className="in-card">
-              <div className="in-head"><span className="in-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><rect x="3" y="10" width="18" height="11" rx="2" /><path d="M7 10V7a5 5 0 0110 0v3" /></svg></span><h2 className="in-nm">Financial &amp; Business Services</h2></div>
-              <p className="in-val">Financial services, insurance and other businesses operating in highly regulated or complex environments.</p>
-            </article>
-            <article className="in-card">
-              <div className="in-head"><span className="in-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg></span><h2 className="in-nm">Healthcare &amp; Life Sciences</h2></div>
-              <p className="in-val">Healthcare providers, services and businesses navigating complex operational and regulatory environments.</p>
-            </article>
-            <article className="in-card">
-              <div className="in-head"><span className="in-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><rect x="3" y="7" width="18" height="13" rx="2" /><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2M3 13h18" /></svg></span><h2 className="in-nm">Professional Services</h2></div>
-              <p className="in-val">Accounting, legal, advisory and other expertise-led businesses.</p>
-            </article>
-            <article className="in-card">
-              <div className="in-head"><span className="in-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><rect x="1" y="7" width="13" height="10" rx="1" /><path d="M14 10h4l3 3v4h-7z" /><circle cx="5.5" cy="19" r="1.5" /><circle cx="17.5" cy="19" r="1.5" /></svg></span><h2 className="in-nm">Logistics &amp; Operations</h2></div>
-              <p className="in-val">Logistics, supply chain and businesses where operational efficiency is central to growth.</p>
-            </article>
-            <article className="in-card">
-              <div className="in-head"><span className="in-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6" /></svg></span><h2 className="in-nm">Government Organisations</h2></div>
-              <p className="in-val">Government entities managing operational complexity, regulatory requirements and evolving citizen expectations.</p>
-            </article>
+    <div className="v4">
+      <section className="ind-open on-navy">
+        <div className="wrap ind-grid">
+          <div>
+            <span className="eyebrow">Industries and functions</span>
+            <h1>Built for ambitious businesses across sectors.</h1>
+            <p className="lede">Our focus isn’t limited to a specific industry. We work with businesses that have built something from the ground up and are ambitious about what comes next.</p>
+          </div>
+          <WhereTheyMeet />
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="wrap">
+          <span className="eyebrow">Sectors</span>
+          <h2 className="h2" style={{ marginTop: 22 }}>Different industries. The same kind of growing pains.</h2>
+          <div className="sectors">
+            {SECTORS.map((s) => (
+              <article key={s.name} className="sector spot">
+                <CardIcon>{s.icon}</CardIcon>
+                <h3>{s.name}</h3>
+                <p>{s.d}</p>
+                <p className="often"><span className="lab">What we often see</span>{s.often}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="reveal" style={{ background: 'var(--bg)' }}>
-        <div className="si">
-          <h2 className="st" style={{ maxWidth: '700px' }}>Across Business Functions</h2>
-          <p className="ab-intro" style={{ marginBottom: '1.6rem' }}>
-            Our work isn&#8217;t limited to an industry&#8217;s core function. We
-            work across the interconnected functions that shape how a
-            business operates, grows and delivers value.
-          </p>
-          <FunctionsRail functions={functions} />
-          <div className="fx-rule"></div>
-          <p className="ab-intro" style={{ marginBottom: 0 }}>
-            Our perspective spans both the industry and the functions within
-            it&mdash;because the challenges that limit growth rarely sit
-            neatly in one place.
-          </p>
+      <section className="section funcs">
+        <div className="wrap">
+          <span className="eyebrow">Functions</span>
+          <h2 className="h2" style={{ marginTop: 22 }}>Across every function that makes the business work</h2>
+          <p className="lede" style={{ marginTop: 22 }}>Our work isn’t limited to an industry’s core function. We work across the interconnected functions that shape how a business operates, grows and delivers value: the core functions that face the customer, and the business-support functions behind them. All of them, in any industry.</p>
+          <div className="fn-cards">
+            {FUNCTIONS.map((f) => (
+              <article key={f.name} className="fn spot">
+                <CardIcon>{f.icon}</CardIcon>
+                <h4>{f.name}</h4>
+                <p>{f.d}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
-    </>
+
+      <section className="section cta ind-cta">
+        <div className="wrap cta-in">
+          <div className="settle">
+            <p className="meet-line">We understand the industry you operate in and the functions that keep it running, because what holds growth back is rarely confined to one corner of the business.</p>
+          </div>
+          <div className="cta-btns">
+            <Link className="btn btn-gold" href="/contact">Start a conversation</Link>
+            <Link className="btn btn-line" href="/">Back to Lantern</Link>
+          </div>
+        </div>
+      </section>
+      <SettleObserver />
+      <SpotObserver />
+    </div>
   );
 }

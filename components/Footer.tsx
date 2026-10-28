@@ -3,8 +3,7 @@ export default function Footer() {
     <footer className="footer">
       <div className="ft-tag">Light Within. Clarity Beyond.</div>
       <div className="ft-links">
-        <a href="/complexity">Landscape</a>
-        <a href="/lantern">Lantern</a>
+        <a href="/why-lantern">Why Lantern</a>
         <a href="/services">Services</a>
         <a href="/pulse">Market Pulse</a>
         <a href="/industries">Industries</a>

@@ -1,0 +1,60 @@
+/* About page, from the ABOUT view in Lantern_Website_V4_Final.html. Scoped under .v4. */
+
+/* Opening */
+.v4 .about-open { position: relative; overflow: hidden; padding-block: clamp(48px, 7vw, 96px) clamp(40px, 5vw, 64px); }
+.v4 .about-open::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(520px 340px at 88% 12%, rgba(231,170,81,.15), transparent 70%); }
+.v4 .about-open .wrap { position: relative; }
+.v4 .about-open h1 { font-family: var(--font-display); font-weight: 500; color: var(--navy); font-size: clamp(2.8rem, 6.2vw, 5rem); line-height: 1.02; letter-spacing: -.015em; margin-block: 22px 24px; max-width: 18ch; text-wrap: balance; }
+.v4 .about-open .lede { font-size: 1.15rem; line-height: 1.75; }
+
+/* Anatomy: the labelled lantern and its five pillar cards */
+.v4 .anatomy { background: var(--navy-bg); color: rgba(255,255,255,.86); position: relative; overflow: hidden; }
+.v4 .anatomy::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(640px 640px at 22% 50%, rgba(255,228,153,.1), transparent 70%); }
+.v4 .anatomy .wrap { position: relative; }
+.v4 .about-an { border-top: 1px solid rgba(255,228,153,.25); }
+.v4 .an-stage { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(28px, 4vw, 64px); align-items: center; margin-top: clamp(36px, 5vw, 64px); }
+.v4 .lantern { width: 100%; max-width: 520px; height: auto; justify-self: center; overflow: visible; }
+.v4 .lantern .part { transition: opacity .5s ease; }
+.v4 .lantern.has-on .part:not(.on) { opacity: .3; }
+.v4 .an-lab { font: 700 15px var(--font-body); letter-spacing: .14em; }
+.v4 .an-sub { font: 400 13px var(--font-body); fill: rgba(255,255,255,.72); }
+.v4 .part[data-part="handle"] .an-lab { fill: #FFE499; }
+.v4 .part[data-part="flame"] .an-lab { fill: #E7AA51; }
+.v4 .part[data-part="glass"] .an-lab { fill: rgba(255,255,255,.72); }
+.v4 .part[data-part="fuel"] .an-lab { fill: #E5C971; }
+.v4 .part[data-part="frame"] .an-lab { fill: #FFFFFF; }
+.v4 .an-flame { transform-box: fill-box; transform-origin: 50% 100%; animation: v4-anBreath 5s ease-in-out infinite; }
+.v4 .an-fglow { animation: v4-anGlowB 5s ease-in-out infinite; }
+@keyframes v4-anBreath { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03, 1.05); } }
+@keyframes v4-anGlowB { 0%, 100% { opacity: .7; } 50% { opacity: 1; } }
+
+.v4 .an-cards { display: grid; gap: 16px; }
+.v4 .an-card { --pc: #E7AA51; display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 18px; align-items: start; padding: 24px 28px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-left: 3px solid var(--pc); border-radius: 0 6px 6px 0; cursor: default; outline: none; transition: background .35s, border-color .35s; }
+.v4 .an-card[data-part="handle"] { --pc: #FFE499; }
+.v4 .an-card[data-part="flame"] { --pc: #E7AA51; }
+.v4 .an-card[data-part="glass"] { --pc: rgba(255,255,255,.72); }
+.v4 .an-card[data-part="fuel"] { --pc: #E5C971; }
+.v4 .an-card[data-part="frame"] { --pc: #FFFFFF; }
+.v4 .an-card:hover, .v4 .an-card:focus-visible, .v4 .an-card.on { background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.18); border-left-color: var(--pc); }
+.v4 .an-ico { width: 26px; height: 26px; margin-top: 2px; fill: none; stroke: var(--pc); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.v4 .an-card h3 { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.3rem, 2vw, 1.55rem); line-height: 1.15; color: var(--white); }
+.v4 .an-card p { margin-top: 6px; font-size: .97rem; line-height: 1.55; color: rgba(255,255,255,.78); }
+.v4 .an-quote { margin-top: clamp(44px, 6vw, 80px); padding-top: 32px; border-top: 1px solid rgba(255,255,255,.16); position: relative; text-align: center; font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: clamp(1.8rem, 3.8vw, 3rem); line-height: 1.15; color: var(--gold-light); text-wrap: balance; }
+.v4 .an-quote::before { content: ""; position: absolute; left: 50%; top: -1px; width: 88px; height: 3px; margin-left: -44px; background: var(--gold); }
+@media (max-width: 899px) { .v4 .an-stage { grid-template-columns: minmax(0, 1fr); } .v4 .lantern { max-width: 400px; } }
+@media (prefers-reduced-motion: reduce) { .v4 .an-flame, .v4 .an-fglow { animation: none; } }
+
+/* Founders */
+.v4 .fnd-sec { background: var(--tint); border-top: 1px solid var(--line); }
+.v4 .fnd-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(20px, 3vw, 36px); margin-top: clamp(28px, 4vw, 48px); }
+.v4 .fnd { display: grid; grid-template-columns: minmax(0, 190px) minmax(0, 1fr); gap: clamp(20px, 2.6vw, 32px); padding: clamp(22px, 3vw, 34px); background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--navy); position: relative; }
+.v4 .fnd::before { content: ""; position: absolute; left: 0; top: -3px; width: 90px; height: 3px; background: var(--gold); }
+.v4 .fnd-ph { position: relative; aspect-ratio: 4 / 5; background: #0E2F58; display: grid; place-items: center; overflow: hidden; }
+.v4 .fnd-ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.v4 .fnd-ph::after { content: ""; position: absolute; inset: 8px; border: 1px solid rgba(255,228,153,.5); pointer-events: none; }
+.v4 .fnd-role { font-size: .72rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #E7AA51; }
+.v4 .fnd h3 { font-family: var(--font-display); font-weight: 600; font-size: 1.8rem; line-height: 1.1; color: var(--navy); margin-top: 8px; }
+.v4 .fnd blockquote { margin: 16px 0 0; padding-left: 16px; border-left: 2px solid var(--gold-solid); font-size: 1rem; line-height: 1.7; color: var(--ink); }
+:root[data-theme="dark"] .v4 .fnd-role { color: #FFE499; }
+@media (max-width: 1019px) { .v4 .fnd-grid { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 560px) { .v4 .fnd { grid-template-columns: minmax(0, 1fr); } .v4 .fnd-ph { max-width: 180px; } }

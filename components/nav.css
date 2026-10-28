@@ -1,0 +1,76 @@
+/*
+ * Site header (Lantern V4), ported from Lantern_Website_V4_Final.html.
+ * Rules keep the HTML's source order so its overrides resolve the same way.
+ * Tokens come from app/v4.css via the `.v4-nav` class.
+ */
+.v4-nav { font-family: var(--font-body); font-size: 16px; line-height: 1.65; color: var(--ink); -webkit-font-smoothing: antialiased; }
+.v4-nav :focus-visible { outline: 2px solid var(--gold-solid); outline-offset: 3px; }
+.v4-nav .wrap { max-width: 1200px; margin-inline: auto; padding-inline: var(--gutter); }
+
+/* Buttons */
+.v4-nav .btn { display: inline-flex; align-items: center; gap: .7em; padding: 15px 26px; border-radius: 2px; font-size: .76rem; font-weight: 700; line-height: 1.65; letter-spacing: .14em; text-transform: uppercase; text-decoration: none; cursor: pointer; border: 0; transition: transform .2s, box-shadow .2s, background .2s, color .2s; }
+.v4-nav .btn-gold { background: var(--gold); color: var(--navy); box-shadow: inset 0 1px 0 rgba(255,255,255,.55), 0 12px 26px -14px rgba(231,170,81,.9); }
+.v4-nav .btn-gold:hover { color: var(--navy); transform: translateY(-2px); box-shadow: inset 0 1px 0 rgba(255,255,255,.55), 0 16px 30px -14px rgba(231,170,81,.95); }
+.v4-nav .btn-sm { padding: 12px 20px; }
+:root[data-theme="dark"] .v4-nav .btn-gold { --navy: #0E2F58; }
+
+/* Nav */
+.v4-nav.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: rgba(255,255,255,.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+.v4-nav .nav-bar { position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; pointer-events: none; }
+.v4-nav .nav-bar i { display: block; height: 100%; background: var(--gold); transform-origin: 0 50%; transform: scaleX(0); }
+.v4-nav .nav-in { display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 72px; flex-wrap: wrap; }
+.v4-nav .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: var(--navy); }
+.v4-nav .nav-links { display: flex; align-items: center; gap: 34px; }
+.v4-nav .nav-links a { font-size: .72rem; font-weight: 600; line-height: 1.65; letter-spacing: .16em; text-transform: uppercase; text-decoration: none; color: var(--navy); padding-block: 8px; background: var(--gold) no-repeat 0 100% / 0 2px; transition: background-size .3s; }
+.v4-nav .nav-links a:hover, .v4-nav .nav-links a.active { color: var(--navy); background-size: 100% 2px; }
+@media (max-width: 700px) {
+  .v4-nav .nav-in { min-height: 0; padding-block: 12px 0; }
+  .v4-nav .nav-links { order: 3; width: 100%; justify-content: space-between; gap: 12px; border-top: 1px solid var(--line); padding-block: 4px; }
+}
+
+/* Nav for seven pages */
+.v4-nav .nav-links { gap: 28px; }
+@media (max-width: 1120px) {
+  .v4-nav .nav-in { min-height: 0; padding-block: 12px 0; }
+  .v4-nav .nav-links { order: 3; width: 100%; justify-content: flex-start; gap: 26px; border-top: 1px solid var(--line); padding-block: 4px; overflow-x: auto; white-space: nowrap; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .v4-nav .nav-links::-webkit-scrollbar { display: none; }
+}
+@media (max-width: 480px) {
+  .v4-nav .btn-sm { padding: 10px 14px; }
+}
+
+/* Brand mark in the nav */
+.v4-nav .brand-mark { height: 46px; width: auto; max-width: 100%; display: block; }
+@media (min-width: 900px) {
+  .v4-nav .wrap.nav-in { max-width: none; padding-inline: clamp(20px, 2.6vw, 44px); }
+  .v4-nav .nav-in > .brand { margin-right: clamp(28px, 5vw, 96px); }
+}
+@media (max-width: 480px) { .v4-nav .brand-mark { height: 38px; } }
+.v4-nav .brand { gap: 14px; }
+.v4-nav .nav-links { gap: 24px; }
+@media (max-width: 1240px) and (min-width: 1121px) { .v4-nav .nav-links { gap: 18px; } .v4-nav .nav-links a { letter-spacing: .12em; } }
+
+/* Dark theme */
+:root[data-theme="dark"] .v4-nav.nav { background: rgba(14,47,88,.96); border-bottom-color: rgba(255,255,255,.12); }
+.v4-nav .brand-mark.darkv { display: none; }
+:root[data-theme="dark"] .v4-nav .brand-mark.light { display: none; }
+:root[data-theme="dark"] .v4-nav .brand-mark.darkv { display: block; }
+
+/* Light / dark toggle */
+.v4-nav .theme-tg { flex: none; width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--line); background: transparent; color: var(--navy); cursor: pointer; padding: 0; transition: border-color .25s, color .25s; }
+.v4-nav .theme-tg:hover { border-color: var(--gold-solid); color: var(--gold-solid); }
+.v4-nav .theme-tg:focus-visible { outline: 2px solid var(--gold-solid); outline-offset: 2px; }
+.v4-nav .theme-tg svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.v4-nav .theme-tg .sun { display: none; }
+:root[data-theme="dark"] .v4-nav .theme-tg .sun { display: block; }
+:root[data-theme="dark"] .v4-nav .theme-tg .moon { display: none; }
+.v4-nav .nav-in > .theme-tg { margin-left: auto; margin-right: -8px; }
+@media (max-width: 480px) {
+  .v4-nav .nav-in { gap: 10px; }
+  .v4-nav .nav-in > .theme-tg { width: 34px; height: 34px; margin-right: 0; }
+  .v4-nav .brand-mark { height: 32px; }
+  .v4-nav .btn-sm { padding: 9px 12px; letter-spacing: .12em; }
+}
+
+/* Smooth colour change while switching theme */
+html.theming, html.theming * { transition: background-color .35s ease, color .35s ease, border-color .35s ease !important; }

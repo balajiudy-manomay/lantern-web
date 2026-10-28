@@ -1,0 +1,85 @@
+/* Why Lantern page (Lantern V4). Shared tokens and type live in app/v4.css. */
+
+/* ---------- Opening: human / AI / automation ---------- */
+.v4 .svc-open { background: var(--surface); position: relative; overflow: hidden; padding-block: clamp(48px, 7vw, 96px) clamp(40px, 6vw, 80px); }
+.v4 .svc-open::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(520px 520px at 92% 10%, rgba(255,228,153,.4), transparent 70%); }
+.v4 .svc-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: clamp(32px, 5vw, 80px); align-items: center; }
+.v4 .svc-open h1 { font-family: var(--font-display); font-weight: 500; color: var(--navy); font-size: clamp(2.7rem, 6vw, 4.9rem); line-height: 1.02; letter-spacing: -.015em; margin-block: 24px 26px; text-wrap: balance; }
+.v4 .svc-open h1 .hl { font-style: italic; background: var(--gold) no-repeat 0 92% / 100% .085em; padding-bottom: .04em; }
+.v4 .decide { margin-top: 30px; display: grid; border-top: 1px solid var(--line); }
+.v4 .decide button { display: flex; align-items: center; gap: 16px; width: 100%; text-align: left; background: transparent; border: 0; border-bottom: 1px solid var(--line); padding: 16px 4px; cursor: pointer; font-family: var(--font-display); font-weight: 600; font-size: 1.35rem; line-height: 1.65; color: var(--navy); transition: background .2s, padding .2s; }
+.v4 .decide button i { width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--gold-solid); flex: none; transition: background .2s; }
+.v4 .decide button:hover, .v4 .decide button.on { background: var(--tint); padding-left: 14px; }
+.v4 .decide button.on i { background: var(--gold); }
+.v4 .venn-fig { margin: 0; align-self: end; padding-top: clamp(0px, 14vw, 190px); }
+.v4 .venn { width: 100%; max-width: 460px; height: auto; justify-self: center; display: block; margin-inline: auto; }
+.v4 .venn .c { fill: rgba(14,47,88,.06); stroke: var(--navy); stroke-opacity: .55; stroke-width: 1.4; transition: fill .3s, stroke .3s, stroke-width .3s, opacity .3s; }
+.v4 .venn .c.on { fill: #0E2F58; stroke: #0E2F58; stroke-opacity: 1; stroke-width: 3; }
+.v4 .venn.has-on .c:not(.on) { opacity: .55; }
+.v4 .venn text.on { fill: url(#vg); }
+.v4 .venn .v-mid { fill: url(#vg); stroke: #E7AA51; stroke-width: 1.5; pointer-events: none; }
+.v4 .v-title { font: 600 15px var(--font-body); fill: var(--navy); }
+.v4 .v-sub { font: 500 11.5px var(--font-body); fill: var(--muted); }
+.v4 .venn .v-core { font: 700 13px var(--font-body); fill: #0E2F58; letter-spacing: .02em; }
+.v4 .venn-cap { text-align: center; font-size: .85rem; color: var(--muted); margin-top: 8px; }
+:root[data-theme="dark"] .v4 .venn .c { fill: rgba(255,255,255,.04); stroke: rgba(255,255,255,.5); }
+:root[data-theme="dark"] .v4 .venn .c.on { fill: #0E2F58; stroke: #E7AA51; }
+@media (max-width: 899px) { .v4 .svc-grid { grid-template-columns: minmax(0, 1fr); } .v4 .venn-fig { padding-top: 12px; } }
+
+/* ---------- Our approach: five stages and the Lantern beam ---------- */
+.v4 .flow-sec { background: var(--surface); padding-top: 0; }
+.v4 .beam-lede { margin-top: 18px; max-width: 62ch; }
+.v4 .flow { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); row-gap: 20px; margin-top: 40px; list-style: none; padding: 0; }
+.v4 .flow > li { display: contents; }
+.v4 .fl-btn { grid-row: 1; position: relative; display: grid; gap: 4px; align-content: start; text-align: left; background: none; border: 0; padding: 32px 12px 8px 0; cursor: pointer; }
+.v4 .fl-btn::before { content: ""; position: absolute; left: 0; top: 0; width: 18px; height: 18px; border-radius: 50%; background: var(--surface); border: 2px solid var(--line); transition: background .3s, border-color .3s, box-shadow .3s; }
+.v4 .fl-btn::after { content: ""; position: absolute; left: 24px; right: 6px; top: 8px; height: 2px; background: var(--line); transition: background .4s; }
+.v4 .flow > li:last-child .fl-btn::after { display: none; }
+.v4 .fl-btn.reached::before { background: var(--gold); border-color: var(--gold-solid); }
+.v4 .fl-btn.fill::after { background: var(--gold); }
+.v4 .fl-btn.active::before { box-shadow: 0 0 0 6px rgba(231,170,81,.28); }
+.v4 .fl-v { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.1rem, 1.9vw, 1.6rem); letter-spacing: .06em; line-height: 1.1; color: var(--navy); }
+.v4 .fl-s { font-size: .84rem; color: var(--muted); line-height: 1.4; }
+@media (max-width: 899px) {
+  .v4 .flow { display: block; }
+  .v4 .flow > li { display: block; border-bottom: 1px solid var(--line); }
+  .v4 .fl-btn { width: 100%; padding: 18px 0 18px 38px; }
+  .v4 .fl-btn::before { top: 20px; }
+  .v4 .fl-btn::after { display: none; }
+}
+.v4 .beam-stage { position: relative; margin-top: 20px; background: var(--navy-bg); color: rgba(255,255,255,.88); display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(24px, 3vw, 48px); align-items: center; padding: clamp(28px, 4vw, 52px); overflow: hidden; }
+.v4 .beam-stage::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: var(--gold); }
+.v4 .beam-copy .lab { color: var(--gold-light); }
+.v4 .beam-copy h3 { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.9rem, 3vw, 2.6rem); line-height: 1.08; color: var(--white); margin-top: 10px; text-wrap: balance; }
+.v4 .beam-copy p { margin-top: 16px; font-size: 1.05rem; line-height: 1.65; max-width: 46ch; }
+.v4 .beam-copy.swap { animation: v4-fade .45s ease both; }
+.v4 .beam-fig svg { width: 100%; height: auto; display: block; overflow: visible; }
+.v4 .bm-lbl { font: 500 19px var(--font-body); fill: rgba(255,255,255,.86); }
+.v4 .bm-lbl-s { font: 600 19px var(--font-body); fill: #FFE499; }
+@media (max-width: 899px) { .v4 .beam-stage { grid-template-columns: minmax(0, 1fr); } .v4 .beam-fig { order: -1; } }
+
+/* ---------- One holistic way of working: held in balance ---------- */
+.v4 .approach { background: var(--surface); border-top: 1px solid var(--line); }
+.v4 .hw { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(28px, 5vw, 72px); align-items: start; margin-top: clamp(32px, 4vw, 48px); }
+.v4 .bal-fig { margin: 0; }
+.v4 .bal-fig svg { width: 100%; height: auto; display: block; overflow: visible; }
+.v4 .bal-cap { margin-top: 8px; padding-top: 16px; border-top: 1px solid var(--line); display: grid; gap: 6px; min-height: 92px; }
+.v4 .bal-cap b { font-family: var(--font-display); font-weight: 600; font-size: 1.45rem; line-height: 1.15; color: var(--navy); }
+.v4 .bal-cap span { font-size: .98rem; line-height: 1.55; color: var(--muted); }
+.v4 .bl-lbl { font: 600 22px var(--font-body); }
+:root[data-theme="dark"] .v4 .bal-zone { fill: rgba(255,255,255,.04); }
+.v4 .hw-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.v4 .hw-row { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 16px; padding: 16px 12px; border-bottom: 1px solid var(--line); cursor: pointer; outline: none; transition: background .3s ease; position: relative; }
+.v4 .hw-row::before { content: ""; position: absolute; left: 0; top: 14px; bottom: 14px; width: 2px; background: var(--gold); transform: scaleY(0); transition: transform .35s ease; }
+.v4 .hw-row .gi { width: 22px; height: 22px; color: var(--navy); margin-top: 3px; }
+.v4 .hw-row.added .gi { color: var(--gold-solid); }
+.v4 .hw-row h4 { font-family: var(--font-display); font-weight: 600; font-size: 1.3rem; line-height: 1.15; color: var(--navy); margin: 0; }
+.v4 .hw-row p { margin-top: 4px; font-size: .94rem; line-height: 1.55; }
+.v4 .hw-row.on, .v4 .hw-row:focus-visible { background: var(--tint); }
+.v4 .hw-row.on::before, .v4 .hw-row:focus-visible::before { transform: scaleY(1); }
+@media (max-width: 899px) { .v4 .hw { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- A different starting point ---------- */
+.v4 .right-sol { background: var(--tint); border-top: 1px solid var(--line); }
+.v4 .rs-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); align-items: start; }
+@media (max-width: 899px) { .v4 .rs-grid { grid-template-columns: minmax(0, 1fr); } }

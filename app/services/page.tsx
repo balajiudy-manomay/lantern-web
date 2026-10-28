@@ -1,8 +1,10 @@
-import UserFilledIcon from "@/components/icons/user-filled";
-import ServiceGrid from "../../components/pages/services/ServiceGrid";
-import AiIcon from "@/components/icons/ai-icon";
-import SettingsIcon from "@/components/icons/settings-icon";
+import Link from "next/link";
 import type { Metadata } from "next";
+import ServiceCards from "../../components/pages/services/ServiceCards";
+import { LAYERS } from "../../components/pages/services/services-data";
+import { Icon } from "../../components/icons/v4-icons";
+import SettleObserver from "../../components/SettleObserver";
+import "./services.css";
 
 export const metadata: Metadata = {
   title: "Technology Consulting Services | Lantern",
@@ -45,95 +47,72 @@ export const metadata: Metadata = {
 
 export default function ServicesPage() {
   return (
-    <section id="services" className="reveal">
-      <div className="si">
-        <h1 className="sl">Services</h1>
-        <p className="st">The Questions That Shape What&#8217;s Next</p>
-
-        <h2 className="sr-only">Our Services</h2>
-        <ServiceGrid />
-
-        <h2 className="sl" style={{ marginTop: '1.5rem' }}>How the layers combine</h2>
-        <p className="st">Human + AI + Automation = Value</p>
-        <div className="tw">
-          <table className="vt">
-            <thead>
-              <tr>
-                <th>Service</th>
-                <th><span className="flex flex-row gap-2"><UserFilledIcon size={14} /> <span>Human</span></span></th>
-                <th className="ca"><span className="flex flex-row gap-2"><AiIcon size={16} /> <span>AI</span></span></th>
-                <th><span className="flex flex-row gap-2"><SettingsIcon size={16} /> <span>Automation</span></span></th>
-                <th>Value Delivered</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Data &amp; Intelligence</td>
-                <td>Direction, storytelling</td>
-                <td>Pattern detection</td>
-                <td>Pipeline automation</td>
-                <td>Decisions powered by truth, not gut feel</td>
-              </tr>
-              <tr>
-                <td>AI Strategy &amp; Roadmap</td>
-                <td>Vision, sequencing</td>
-                <td>Benchmarking, analysis</td>
-                <td>Report automation</td>
-                <td>A strategy the board can fund and the team can execute</td>
-              </tr>
-              <tr>
-                <td>Automated Operations</td>
-                <td>Exception handling</td>
-                <td>Decision support</td>
-                <td>Process execution</td>
-                <td>Capacity unlocked. Cost reduced. People freed.</td>
-              </tr>
-              <tr>
-                <td>Quality &amp; Assurance</td>
-                <td>Final review, context</td>
-                <td>Error detection</td>
-                <td>Continuous monitoring</td>
-                <td>Zero surprises. Every time.</td>
-              </tr>
-              <tr>
-                <td>AI Governance &amp; Trust</td>
-                <td>Policy, accountability</td>
-                <td>Explainability engine</td>
-                <td>Audit log automation</td>
-                <td>AI your regulators and your board can stand behind</td>
-              </tr>
-              <tr>
-                <td>Transformation Consulting</td>
-                <td>Strategy, change mgmt</td>
-                <td>Scenario modelling</td>
-                <td>Process redesign tools</td>
-                <td>Change that outlasts the programme</td>
-              </tr>
-              <tr>
-                <td>Third Party Solutions</td>
-                <td>Stakeholder management</td>
-                <td>Configuration AI</td>
-                <td>Integration automation</td>
-                <td>Outcomes delivered. Not just systems installed.</td>
-              </tr>
-              <tr>
-                <td>People &amp; Change</td>
-                <td>Cultural alignment</td>
-                <td>Adoption analytics</td>
-                <td>Training automation</td>
-                <td>Increase adoption. Investments realized in business outcomes</td>
-              </tr>
-              <tr>
-                <td>Managed Operations</td>
-                <td>Judgment, escalation handling</td>
-                <td>Quality analytics, decision support</td>
-                <td>Workflow execution, document processing</td>
-                <td>Higher margins, scalable delivery, and consistent service quality</td>
-              </tr>
-            </tbody>
-          </table>
+    <div className="v4">
+      <section className="svc2-open">
+        <div className="wrap">
+          <span className="eyebrow">Services</span>
+          <h1>Start with what isn&rsquo;t working.</h1>
+          <p className="lede">
+            Most companies don&rsquo;t come to us asking for a service. They come with something that isn&rsquo;t working.
+            Our services are the answers to the questions below. Find the one that sounds like you.
+          </p>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <section className="section svc-list-sec" id="listing">
+        <div className="wrap">
+          <span className="eyebrow">Services</span>
+          <h2 className="h2" style={{ marginTop: 22, maxWidth: "none" }}>The Questions That Shape What&rsquo;s Next</h2>
+          <ServiceCards />
+        </div>
+      </section>
+
+      <section className="section lyr-sec" id="table">
+        <div className="wrap">
+          <span className="eyebrow">How the layers combine</span>
+          <h2 className="h2">Human + AI + Automation = <span className="gl">Value</span></h2>
+          <div className="lyr-card settle">
+            <table className="lyr">
+              <caption className="sr">How human, AI and automation layers combine in each Lantern service, and the value delivered</caption>
+              <thead>
+                <tr>
+                  <th scope="col" className="c-svc">Service</th>
+                  <th scope="col" className="c-h"><span className="hd"><Icon id="i-people" />Human</span></th>
+                  <th scope="col" className="c-a"><span className="hd"><Icon id="i-chip" />AI</span></th>
+                  <th scope="col" className="c-au"><span className="hd"><Icon id="i-gear" />Automation</span></th>
+                  <th scope="col" className="c-val">Value delivered</th>
+                </tr>
+              </thead>
+              <tbody>
+                {LAYERS.map((l) => (
+                  <tr key={l.name}>
+                    <th scope="row"><span className="nm"><i aria-hidden="true"><Icon id={l.icon} /></i>{l.name}</span></th>
+                    <td className="h" data-label="Human">{l.human}</td>
+                    <td className="a" data-label="AI">{l.ai}</td>
+                    <td className="au" data-label="Automation">{l.auto}</td>
+                    <td className="v" data-label="Value delivered">{l.value}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section className="section cta">
+        <div className="wrap cta-in">
+          <div className="settle">
+            <h2 className="h2">Not sure which one is yours?</h2>
+            <p>Start with the situation you are in. We will help you work out what is really behind it.</p>
+          </div>
+          <div className="cta-btns">
+            <Link className="btn btn-gold" href="/contact">Start a conversation</Link>
+            <Link className="btn btn-line" href="/why-lantern">Why Lantern</Link>
+          </div>
+        </div>
+      </section>
+
+      <SettleObserver />
+    </div>
   );
 }

@@ -1,0 +1,44 @@
+/* FAQs page, from the FAQS view in Lantern_Website_V4_Final.html. Scoped under .v4. */
+
+/* Opening: heading, search and category filter */
+.v4 .faq-open { position: relative; overflow: hidden; padding-block: clamp(48px, 7vw, 88px) 0; }
+.v4 .faq-open::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(520px 520px at 92% 0%, rgba(255,228,153,.4), transparent 70%); }
+.v4 .faq-open .wrap { position: relative; }
+.v4 .faq-open h1 { font-family: var(--font-display); font-weight: 500; color: var(--navy); font-size: clamp(2.8rem, 6.2vw, 5rem); line-height: 1.02; letter-spacing: -.015em; margin-block: 24px 22px; text-wrap: balance; }
+.v4 .faq-tools { display: grid; gap: 18px; margin-top: 30px; max-width: 760px; }
+.v4 .srch { display: flex; align-items: center; gap: 12px; padding: 0 16px; background: var(--surface); border: 1px solid var(--line); transition: border-color .2s, box-shadow .2s; }
+.v4 .srch:focus-within { border-color: var(--gold-solid); box-shadow: 0 0 0 4px rgba(231,170,81,.18); }
+.v4 .srch svg { width: 20px; height: 20px; flex: none; fill: none; stroke: var(--muted); stroke-width: 1.8; stroke-linecap: round; }
+.v4 .srch input { flex: 1; min-width: 0; padding: 16px 0; border: 0; outline: 0; background: transparent; font: inherit; font-size: 1rem; color: var(--navy); }
+.v4 .faq-cats { display: flex; flex-wrap: wrap; gap: 10px; }
+:root[data-theme="dark"] .v4 .srch input { color: #FFFFFF; }
+:root[data-theme="dark"] .v4 .srch input::placeholder { color: rgba(255,255,255,.5); }
+
+/* Questions, with the "Ask us directly" panel beside them */
+.v4 .faq-sec { padding-block: clamp(32px, 5vw, 56px) clamp(60px, 8vw, 104px); }
+.v4 .faq-grid { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: clamp(28px, 5vw, 72px); align-items: start; }
+.v4 .faq-list { border-top: 1px solid var(--line); }
+.v4 .faq { border-bottom: 1px solid var(--line); }
+.v4 .faq[hidden] { display: none; }
+/* An open question keeps its plain look: the Home page's .open section style must not apply */
+.v4 .faq.open { background: none; color: inherit; overflow: visible; padding-block: 0; border-top: 0; }
+.v4 .faq.open::before { content: none; }
+.v4 .faq-q { display: flex; align-items: center; justify-content: space-between; gap: 24px; width: 100%; text-align: left; background: transparent; border: 0; padding: 24px 4px; cursor: pointer; font-family: var(--font-display); font-weight: 600; font-size: clamp(1.3rem, 2.2vw, 1.65rem); line-height: 1.2; color: var(--navy); }
+.v4 .faq-q i { position: relative; flex: none; width: 24px; height: 24px; border: 1px solid var(--gold-solid); border-radius: 50%; transition: background .3s, transform .3s; }
+.v4 .faq-q i::before, .v4 .faq-q i::after { content: ""; position: absolute; left: 50%; top: 50%; width: 10px; height: 2px; margin: -1px 0 0 -5px; background: #E7AA51; transition: transform .3s, background .3s; }
+.v4 .faq-q i::after { transform: rotate(90deg); }
+.v4 .faq.open .faq-q i { background: var(--gold); }
+.v4 .faq.open .faq-q i::before, .v4 .faq.open .faq-q i::after { background: #0E2F58; }
+.v4 .faq.open .faq-q i::after { transform: rotate(0deg); }
+.v4 .faq-a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .4s ease; }
+.v4 .faq-a > div { overflow: hidden; min-height: 0; }
+.v4 .faq.open .faq-a { grid-template-rows: 1fr; }
+.v4 .faq-a p { padding: 0 52px 26px 4px; max-width: 66ch; }
+.v4 .faq-a a { color: var(--navy); font-weight: 600; text-decoration: underline; text-decoration-color: var(--gold-solid); text-underline-offset: 3px; cursor: pointer; }
+.v4 .faq-empty { padding: 28px 4px; color: var(--muted); }
+.v4 .faq-empty a { color: var(--navy); font-weight: 600; }
+.v4 .faq-aside { position: sticky; top: 120px; background: var(--navy-bg); color: rgba(255,255,255,.88); padding: clamp(26px, 3vw, 40px); display: grid; gap: 16px; }
+.v4 .faq-aside::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: var(--gold); }
+.v4 .faq-aside h2 { font-family: var(--font-display); font-weight: 500; font-size: 2rem; line-height: 1.1; color: var(--white); }
+@media (max-width: 899px) { .v4 .faq-grid { grid-template-columns: minmax(0, 1fr); } .v4 .faq-aside { position: relative; top: 0; } }
+@media (prefers-reduced-motion: reduce) { .v4 .faq-a, .v4 .faq-q i, .v4 .faq-q i::before, .v4 .faq-q i::after { transition: none; } }
