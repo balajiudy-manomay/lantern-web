@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { cl01, createScrollScrub, ez, lerp, mixc, sel, sg, stx } from "./svg-anim";
+import { cl01, createRunner, ez, lerp, mixc, sel, sg, stx } from "./svg-anim";
 
 // Icon paths on a 40x40 grid, one per area
 const AREAS = [
@@ -13,9 +13,8 @@ const AREAS = [
   { t: "Change, Adoption & Enablement", lines: ["Change, Adoption", "& Enablement"], icon: <path d="M8 20a12 12 0 0 1 21-8M32 8v6h-6M32 20a12 12 0 0 1-21 8M8 32v-6h6" />, d: "Enable people to adopt new technologies, processes and ways of working through training and communication for sustainable change." },
 ];
 
-// Seconds at which each area is added. Scrolling plays the timeline from 0 to BAL_END (the solution
-// has just settled into alignment), and STILL is the frame shown with reduced motion.
-const BAL_AT = [1.5, 4.1, 6.7, 9.3, 11.9, 14.5], BAL_END = 16.8, STILL = 20;
+// Seconds at which each area is added, and the loop length
+const BAL_AT = [1.5, 4.1, 6.7, 9.3, 11.9, 14.5], BAL_L = 26;
 
 /** Builds the balance drawing inside `svg` and returns a function that renders it at time t. */
 function buildBalance(svg: SVGSVGElement, rows: HTMLElement[], capT: HTMLElement, capD: HTMLElement) {
@@ -68,9 +67,7 @@ function buildBalance(svg: SVGSVGElement, rows: HTMLElement[], capT: HTMLElement
     zone.style.stroke = done > .5 ? "#E7AA51" : "var(--navy)";
     [zl1, zl2].forEach((z) => { z.style.fill = done > .5 ? "var(--navy)" : "var(--muted)"; z.style.fontWeight = done > .5 ? "700" : "600"; });
     glow.setAttribute("cx", String(x)); glow.setAttribute("cy", String(y)); glow.setAttribute("opacity", String(done));
-    // "open" marks the one row whose description shows while the section is pinned
-    const openRow = Math.max(0, Math.min(5, k - 1));
-    rows.forEach((r, i) => { r.classList.toggle("added", i < k && !resetting); r.classList.toggle("on", i === k - 1 && k < 6 && !resetting); r.classList.toggle("open", i === openRow); });
+    rows.forEach((r, i) => { r.classList.toggle("added", i < k && !resetting); r.classList.toggle("on", i === k - 1 && k < 6 && !resetting); });
     if (k !== lastK) {
       lastK = k;
       let T, D;
@@ -83,13 +80,8 @@ function buildBalance(svg: SVGSVGElement, rows: HTMLElement[], capT: HTMLElement
   };
 }
 
-/**
- * One holistic way of working: a solution held by threads to six areas settles into alignment only when all six are considered.
- * The areas are added as the page scrolls: where the diagram and list fit on screen they stay pinned while the visitor
- * scrolls through them; otherwise they play as the diagram scrolls past.
- */
+/** One holistic way of working: a solution held by threads to six areas settles into alignment only when all six are considered. */
 export default function HeldInBalance() {
-  const trackRef = useRef<HTMLDivElement | null>(null);
   const rootRef = useRef<HTMLDivElement | null>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
   const listRef = useRef<HTMLUListElement | null>(null);
@@ -97,53 +89,46 @@ export default function HeldInBalance() {
   const capDRef = useRef<HTMLSpanElement | null>(null);
 
   useEffect(() => {
-    const track = trackRef.current, root = rootRef.current, svg = svgRef.current, list = listRef.current;
-    if (!track || !root || !svg || !list || !capTRef.current || !capDRef.current) return;
+    const root = rootRef.current, svg = svgRef.current, list = listRef.current;
+    if (!root || !svg || !list || !capTRef.current || !capDRef.current) return;
     const rows = Array.from(list.children) as HTMLLIElement[];
-    const scrub = createScrollScrub({
-      track, pin: root, follow: svg, end: BAL_END, still: STILL,
-      render: buildBalance(svg, rows, capTRef.current, capDRef.current),
-    });
-    // Clicking an area scrolls to the point where it has just been added
-    const goTo = (i: number) => scrub.seek(Math.min(BAL_END, BAL_AT[i] + 1.6));
+    const run = createRunner(root, BAL_L, buildBalance(svg, rows, capTRef.current, capDRef.current), 20);
     const offs = rows.map((r, i) => {
-      const onClick = () => goTo(i);
-      const onKey = (e: KeyboardEvent) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); goTo(i); } };
+      const onClick = () => run.seek(BAL_AT[i] + 1.6);
+      const onKey = (e: KeyboardEvent) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); run.seek(BAL_AT[i] + 1.6); } };
       r.addEventListener("click", onClick);
       r.addEventListener("keydown", onKey);
       return () => { r.removeEventListener("click", onClick); r.removeEventListener("keydown", onKey); };
     });
     return () => {
-      scrub.destroy();
+      run.destroy();
       offs.forEach((off) => off());
       svg.replaceChildren();
     };
   }, []);
 
   return (
-    <div className="bal-track" ref={trackRef}>
-      <div className="hw bal settle" ref={rootRef}>
-        <figure className="bal-fig">
-          <svg
-            ref={svgRef}
-            viewBox="0 0 900 640"
-            role="img"
-            aria-label="A solution held by threads to six areas of the business. With only some areas considered it is pulled away from alignment with the business; with all six it settles into alignment."
-          ></svg>
-          <figcaption className="bal-cap" aria-live="polite"><b ref={capTRef}></b><span ref={capDRef}></span></figcaption>
-        </figure>
-        <ul className="hw-list" ref={listRef}>
-          {AREAS.map((a) => (
-            <li className="hw-row" key={a.t} tabIndex={0}>
-              <svg className="gi" viewBox="0 0 40 40" aria-hidden="true">{a.icon}</svg>
-              <div>
-                <h4>{a.t}</h4>
-                <p>{a.d}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+    <div className="hw bal settle" ref={rootRef}>
+      <figure className="bal-fig">
+        <svg
+          ref={svgRef}
+          viewBox="0 0 900 640"
+          role="img"
+          aria-label="A solution held by threads to six areas of the business. With only some areas considered it is pulled away from alignment with the business; with all six it settles into alignment."
+        ></svg>
+        <figcaption className="bal-cap" aria-live="polite"><b ref={capTRef}></b><span ref={capDRef}></span></figcaption>
+      </figure>
+      <ul className="hw-list" ref={listRef}>
+        {AREAS.map((a) => (
+          <li className="hw-row" key={a.t} tabIndex={0}>
+            <svg className="gi" viewBox="0 0 40 40" aria-hidden="true">{a.icon}</svg>
+            <div>
+              <h4>{a.t}</h4>
+              <p>{a.d}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

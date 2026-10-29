@@ -63,17 +63,15 @@ export default function WhyLantern() {
         </div>
       </section>
 
-      <section className="section right-sol">
-        <div className="wrap rs-grid">
+      <section className="section cta right-sol">
+        <div className="wrap cta-in">
           <div className="settle">
             <span className="eyebrow">A different starting point</span>
             <h2 className="h2" style={{ marginTop: 22 }}>The right solution isn&rsquo;t always the one you came looking for.</h2>
           </div>
-          <div className="settle">
-            <div className="cta-btns">
-              <Link className="btn btn-gold" href="/contact">Start a conversation</Link>
-              <Link className="btn btn-line" href="/services">Explore services</Link>
-            </div>
+          <div className="cta-btns">
+            <Link className="btn btn-gold" href="/contact">Start a conversation</Link>
+            <Link className="btn btn-line" href="/services">Explore services</Link>
           </div>
         </div>
       </section>
