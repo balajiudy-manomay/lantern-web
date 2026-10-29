@@ -70,7 +70,7 @@ export default function WhyLantern() {
             <h2 className="h2" style={{ marginTop: 22 }}>The right solution isn&rsquo;t always the one you came looking for.</h2>
           </div>
           <div className="cta-btns">
-            <Link className="btn btn-gold" href="/contact">Start a conversation</Link>
+            <Link className="btn btn-gold" href="/cocreate">Start a conversation</Link>
             <Link className="btn btn-line" href="/services">Explore services</Link>
           </div>
         </div>

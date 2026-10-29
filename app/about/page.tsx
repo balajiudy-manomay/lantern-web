@@ -129,7 +129,7 @@ export default function AboutPage() {
             <p>Tell us the challenge in front of you and we will take it from there.</p>
           </div>
           <div className="cta-btns">
-            <Link className="btn btn-gold" href="/contact">Start a conversation</Link>
+            <Link className="btn btn-gold" href="/cocreate">Start a conversation</Link>
             <Link className="btn btn-line" href="/services">Explore services</Link>
           </div>
         </div>

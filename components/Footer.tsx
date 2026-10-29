@@ -9,7 +9,7 @@ export default function Footer() {
         <a href="/industries">Industries</a>
         <a href="/about">About</a>
         <a href="/faqs">FAQs</a>
-        <a href="/contact">Connect</a>
+        <a href="/cocreate">Cocreate</a>
       </div>
       <p className="ft-copy">
         &copy; 2026 Lantern Private Limited &middot; In partnership with <a href="https://manomay.biz" target="_blank" rel="noopener noreferrer">Manomay Innsurtech</a>

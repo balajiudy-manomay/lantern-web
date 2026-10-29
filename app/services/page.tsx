@@ -106,7 +106,7 @@ export default function ServicesPage() {
             <p>Start with the situation you are in. We will help you work out what is really behind it.</p>
           </div>
           <div className="cta-btns">
-            <Link className="btn btn-gold" href="/contact">Start a conversation</Link>
+            <Link className="btn btn-gold" href="/cocreate">Start a conversation</Link>
             <Link className="btn btn-line" href="/why-lantern">Why Lantern</Link>
           </div>
         </div>

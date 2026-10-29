@@ -80,7 +80,7 @@ const FAQS: Faq[] = [
   {
     cat: "working",
     q: "How do we get started?",
-    a: "Visit the Cocreate page and tell us about the challenge you are facing. We will talk it through with you and help you understand what is really behind it.", link: { href: "/contact", label: "Go to the Cocreate page" },
+    a: "Visit the Cocreate page and tell us about the challenge you are facing. We will talk it through with you and help you understand what is really behind it.", link: { href: "/cocreate", label: "Go to the Cocreate page" },
   },
   {
     cat: "approach",
@@ -102,7 +102,7 @@ export default function FaqsPage() {
           <span className="lab" style={{ color: "var(--gold-light)" }}>Still curious?</span>
           <h2>Ask us directly.</h2>
           <p>Tell us what you are working through and we will take it from there.</p>
-          <div><Link className="btn btn-gold" href="/contact">Connect with us</Link></div>
+          <div><Link className="btn btn-gold" href="/cocreate">Cocreate with us</Link></div>
         </aside>
       </FaqAccordion>
     </div>

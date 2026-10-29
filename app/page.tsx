@@ -118,7 +118,7 @@ export default function Home() {
             <p>Share the challenge that sounds most like your business and we will take it from there.</p>
           </div>
           <div className="cta-btns">
-            <Link className="btn btn-gold" href="/contact">Start a conversation</Link>
+            <Link className="btn btn-gold" href="/cocreate">Start a conversation</Link>
             <Link className="btn btn-line" href="/services">Explore services</Link>
           </div>
         </div>

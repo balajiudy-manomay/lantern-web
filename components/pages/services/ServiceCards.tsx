@@ -88,7 +88,7 @@ export default function ServiceCards() {
                 {svc.outs.map((o) => <li key={o}>{o}</li>)}
               </ul>
               <div className="m-cta">
-                <Link className="btn btn-navy" href="/contact" onClick={() => closeSvc(false)}>Start a conversation</Link>
+                <Link className="btn btn-navy" href="/cocreate" onClick={() => closeSvc(false)}>Start a conversation</Link>
               </div>
             </>
           )}

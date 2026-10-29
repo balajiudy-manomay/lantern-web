@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import ContactForm from "../../components/pages/contact/ContactForm";
-import { WORLD_DOTS } from "../../components/pages/contact/world-dots";
-import "./contact.css";
+import ContactForm from "../../components/pages/cocreate/ContactForm";
+import { WORLD_DOTS } from "../../components/pages/cocreate/world-dots";
+import "./cocreate.css";
 
 export const metadata: Metadata = {
-  title: "Contact Lantern",
+  title: "Cocreate with Lantern",
 
   description:
-    "Connect with Lantern to discuss AI, automation and transformation initiatives.",
+    "Cocreate with Lantern: talk through AI, automation and transformation initiatives.",
 
   keywords: [
-    "Contact Lantern",
+    "Cocreate with Lantern",
     "AI Consulting Contact",
     "Automation Consulting",
     "Business Transformation",
@@ -23,24 +23,24 @@ export const metadata: Metadata = {
   ],
 
   alternates: {
-    canonical: "/contact",
+    canonical: "/cocreate",
   },
 
   openGraph: {
-    title: "Contact Lantern",
+    title: "Cocreate with Lantern",
     description:
-      "Connect with Lantern to discuss AI, automation and transformation initiatives.",
-    url: "/contact",
+      "Cocreate with Lantern: talk through AI, automation and transformation initiatives.",
+    url: "/cocreate",
   },
 
   twitter: {
-    title: "Contact Lantern",
+    title: "Cocreate with Lantern",
     description:
-      "Connect with Lantern to discuss AI, automation and transformation initiatives.",
+      "Cocreate with Lantern: talk through AI, automation and transformation initiatives.",
   },
 };
 
-export default function ContactPage() {
+export default function CocreatePage() {
   return (
     <div className="v4">
       <section className="cn">

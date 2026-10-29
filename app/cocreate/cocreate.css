@@ -1,4 +1,4 @@
-/* Contact page, from the CONNECT view in Lantern_Website_V4_Final.html. Scoped under .v4. */
+/* Cocreate page, from the CONNECT view in Lantern_Website_V4_Final.html. Scoped under .v4. */
 
 .v4 .cn { padding-block: clamp(36px, 5vw, 80px); }
 .v4 .cn-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); box-shadow: 0 40px 80px -52px rgba(14,47,88,.65); }

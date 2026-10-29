@@ -126,7 +126,7 @@ export default function IndustriesPage() {
             <p className="meet-line">We understand the industry you operate in and the functions that keep it running, because what holds growth back is rarely confined to one corner of the business.</p>
           </div>
           <div className="cta-btns">
-            <Link className="btn btn-gold" href="/contact">Start a conversation</Link>
+            <Link className="btn btn-gold" href="/cocreate">Start a conversation</Link>
             <Link className="btn btn-line" href="/">Back to Lantern</Link>
           </div>
         </div>

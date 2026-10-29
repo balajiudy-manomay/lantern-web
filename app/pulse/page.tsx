@@ -95,7 +95,7 @@ export default function PulsePage() {
             <p>Tell us where your business is getting stuck. We will help you find what is behind it.</p>
           </div>
           <div className="cta-btns">
-            <Link className="btn btn-gold" href="/contact">Start a conversation</Link>
+            <Link className="btn btn-gold" href="/cocreate">Start a conversation</Link>
             <Link className="btn btn-line" href="/why-lantern">Why Lantern</Link>
           </div>
         </div>
